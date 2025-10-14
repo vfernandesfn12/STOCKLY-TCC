@@ -1,0 +1,15 @@
+.pagelogin {
+  background-color: #1f2d3a; /* vermelho */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.rowcss {
+  background-color: #1f2d3a; /* vermelho */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
