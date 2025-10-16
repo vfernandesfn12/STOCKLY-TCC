@@ -16,7 +16,7 @@ export function useVerificaLogin() {
     async function fetchData() {
       try {
         //Variável para realizar a requisição
-        const req = await fatch(`${url}/usuarios`);
+        const req = await fetch(`${url}/usuarios`);
         //Converte o retorno para o json
         const res = await req.json();
         //Pega a resposta e guarda na variável de usuários
