@@ -79,6 +79,12 @@ const Login = () => {
           <Col className="d-flex flex-column">
             <Form style={{ width: "75%", margin: "auto", textAlign: "center" }}
             onSubmit={handleSubmit(onSubmit, onError)} >
+
+
+              {/* alteração feita para adicionar texto na caixa de login */}
+
+
+              <h2 className={styles.tituloLogin}>Login</h2> 
               {/* Caixinha de email */}
               <FloatingLabel
                 controlId="inputEmail"
