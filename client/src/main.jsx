@@ -10,11 +10,16 @@ import MyRouter from "./MyRouter"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// Importar o provedor do contexto de usuário
+import { AuthProvider } from './contexts/UserContext.jsx'
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* Faz o provedor utilizar as rotas que voce
-    definiu no MyRouter */}
-    <RouterProvider router={MyRouter}/>
+    {/* Fornece as informações de contexto pra toda a aplicação */}
+   <AuthProvider>
+      {/* Faz o provedor utilizar as rotas que você definiu no MyRouter */}
+      <RouterProvider router={MyRouter} />
+    </AuthProvider>
   </StrictMode>,
 )
