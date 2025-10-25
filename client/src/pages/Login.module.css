@@ -94,3 +94,15 @@ form .btn:hover {
   font-weight: 500;
   letter-spacing: 1px;
 }
+
+.link {
+  color: #4a90e2;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+/* Efeito ao passar o mouse */
+.link:hover {
+  color: #8ab6f9; /* tom mais claro de azul */
+}
