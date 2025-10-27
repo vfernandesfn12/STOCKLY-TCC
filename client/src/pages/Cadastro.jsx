@@ -43,30 +43,31 @@ export default function Cadastro() {
   };
 
   return (
-    <div className={styles.pageLogin}>
-      <Container>
-        <Row className="justify-content-center align-items-center min-vh-100">
-          <Col md={5} className="text-center me-5">
+    <div className={styles.pageCadastro}>
+      <Container className="justify-content-center align-content-center min-vh-100">
+        <Row>
+          <Col>
             <img
               src={logo}
               alt=""
               width={"600px"}
               height={"600px"}
-              className="img-fluid mb-3"
+              // className="img-fluid mb-3"
             />
           </Col>
 
-          <Col md={4}>
-            <div className={`${styles.loginCard} p-4 rounded-4 shadow`}>
-              <h2 className="text-center text-light mb-4">Cadastro</h2>
-
+          <Col className="d-flex flex-column">
+            <div>
               {erro && (
                 <Alert variant="danger" onClose={() => setErro("")} dismissible>
                   {erro}
                 </Alert>
               )}
 
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmit} style={{ width: "75%", margin: "auto", textAlign: "center" }}>
+
+                <h2 className="text-center text-light mb-4">Cadastro</h2>
+
                 <FloatingLabel
                   controlId="inputNome"
                   label="Nome"
@@ -127,8 +128,8 @@ export default function Cadastro() {
                   />
                 </FloatingLabel>
 
-                <div className="d-grid">
-                  <Button variant="primary" type="submit">
+                <div>
+                  <Button variant="primary" type="submit" size="lg" style={{backgroundColor: "#344250"}}>
                     Cadastrar
                   </Button>
                 </div>

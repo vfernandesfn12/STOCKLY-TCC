@@ -144,7 +144,7 @@ const Login = () => {
                 style={{ backgroundColor: "#344250" }}
                 variant="primary"
                 type="submit"
-                className="mb-5"
+                className="mb-4"
                 size="lg"
               >
                 Login
@@ -155,7 +155,7 @@ const Login = () => {
                 Usuário ou senha inválidos
               </Alert>
 
-              <p className="text-center text-light mt-3">
+              <p className="text-center text-light">
                 Não possui conta?{" "}
                 <span
                   className={styles.link}
