@@ -189,6 +189,7 @@ const BarraNavegacao = () => {
             </Accordion.Body>
           </Accordion.Item>
           {/* fim pedidos */}
+
         </Accordion>
       </Nav>
 

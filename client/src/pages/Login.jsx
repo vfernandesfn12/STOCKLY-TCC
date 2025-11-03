@@ -90,7 +90,7 @@ const Login = () => {
           </Col>
           {/* Coluna com os campos de login */}
           <Col className="d-flex flex-column">
-            <Form
+            <Form className={styles.formlogin}
               style={{ width: "75%", margin: "auto", textAlign: "center" }}
               onSubmit={handleSubmit(onSubmit, onError)}
             >

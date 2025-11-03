@@ -1,15 +1,15 @@
 {
   "usuarios": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Admnistrador",
-      "email": "admin17@gmail.com",
+      "email": "admin@gmail.com",
       "senha": "123",
       "tipo": "admin",
       "imagemUrl": "https://i.ytimg.com/vi/mMxBYLbyWLw/hq2.jpg?sqp=-oaymwEoCOADEOgC8quKqQMcGADwAQH4AYYCgALgA4oCDAgAEAEYRyBLKHIwDw==&rs=AOn4CLC1G7W20xNWxDV1ozQlQe2Tyns_5g"
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Gerente",
       "email": "gerente18@gmail.com",
       "senha": "123",
@@ -17,12 +17,52 @@
       "imagemUrl": "https://i.pinimg.com/736x/c5/ff/57/c5ff57e4b118ef87bae340068123cbe7.jpg"
     },
     {
-      "id": 3,
+      "id": "3",
       "nome": "Funcionário",
       "email": "funcionario@gmail.com",
       "senha": "12",
       "tipo": "Funcionário",
       "imagemUrl": "https://i.pinimg.com/736x/b2/79/44/b2794415016ee72dcf75fdc904a3c7f5.jpg"
+    }
+  ],
+  "produtos": [
+    {
+      "id": "1",
+      "SKU": "0123456789",
+      "nome": "Shampoo CR7",
+      "descricao": "Anticaspa, shampoo dos vencedores",
+      "categoria": "Saúde e Beleza",
+      "marca": "Clear men",
+      "medida": "mL",
+      "tamanho": 400,
+      "precoCusto": 0,
+      "precoVenda": 0,
+      "quantidade": 7,
+      "fornecedor": "Ambev",
+      "imagemUrl": "https://assets.unileversolutions.com/v1/1207153.jpg"
+    }
+  ],
+  "funcionarios": [
+    {
+      "id": "a7cc",
+      "nome_funcionario": "Joao",
+      "cpf": "175.784.637-99",
+      "telefone": "27995026326",
+      "email": "joao@gmail.com",
+      "departamento": "RH",
+      "fotoUrl": "https://s2-galileu.glbimg.com/uNEmxS89cbcamZwvIpRCkWquGwI=/0x0:1386x888/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_fde5cd494fb04473a83fa5fd57ad4542/internal_photos/bs/2023/m/e/F8xdjfQDGBUXCLqg7oMw/21.jpg"
+    }
+  ],
+  "categorias": [
+    {
+      "id": "1",
+      "nome": "Saúde e Beleza"
+    }
+  ],
+  "departamentos": [
+    {
+      "id": "1",
+      "nome": "RH"
     }
   ]
 }

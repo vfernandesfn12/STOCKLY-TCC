@@ -17,7 +17,7 @@
 }
 
 /* Ajustar o form para responsividade e centralização */
-form {
+.formlogin {
   background-color: #273746;
   padding: 2rem;
   border-radius: 12px;

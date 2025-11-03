@@ -64,7 +64,7 @@ export default function Cadastro() {
                 </Alert>
               )}
 
-              <Form onSubmit={handleSubmit} style={{ width: "75%", margin: "auto", textAlign: "center" }}>
+              <Form className={styles.formlogin} onSubmit={handleSubmit} style={{ width: "75%", margin: "auto", textAlign: "center" }}>
 
                 <h2 className="text-center text-light mb-4">Cadastro</h2>
 
