@@ -26,21 +26,8 @@
     }
   ],
   "produtos": [
-    {
-      "id": "1",
-      "SKU": "0123456789",
-      "nome": "Shampoo CR7",
-      "descricao": "Anticaspa, shampoo dos vencedores",
-      "categoria": "Saúde e Beleza",
-      "marca": "Clear men",
-      "medida": "mL",
-      "tamanho": 400,
-      "precoCusto": 0,
-      "precoVenda": 0,
-      "quantidade": 7,
-      "fornecedor": "Ambev",
-      "imagemUrl": "https://assets.unileversolutions.com/v1/1207153.jpg"
-    }
+    
+    
   ],
   "funcionarios": [
     {

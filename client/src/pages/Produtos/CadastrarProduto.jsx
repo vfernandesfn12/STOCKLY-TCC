@@ -1,17 +1,18 @@
-// Importando o componente de formulário
-import FormularioProduto from "../../components/FormularioProduto/FormularioProduto.jsx";
+// Importando o componente formulário de produto
+import FormularioProduto from '../../components/FormularioProduto/FormularioProduto'
 
-// Importando o componente do bootstrap
-import Container from "react-bootstrap/Container";
+// Importando o container do bootstrap
+import { Container } from 'react-bootstrap'
 
 const CadastrarProduto = () => {
   return (
     <div>
-      <Container>
-        <FormularioProduto page="cadastro" />
-      </Container>
+    <Container>
+        
+      <FormularioProduto page="cadastro"/>
+    </Container>
     </div>
-  );
-};
+  )
+}
 
-export default CadastrarProduto;
+export default CadastrarProduto
