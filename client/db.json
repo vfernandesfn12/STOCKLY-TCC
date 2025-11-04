@@ -51,6 +51,26 @@
       "email": "joao@gmail.com",
       "departamento": "RH",
       "fotoUrl": "https://s2-galileu.glbimg.com/uNEmxS89cbcamZwvIpRCkWquGwI=/0x0:1386x888/888x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_fde5cd494fb04473a83fa5fd57ad4542/internal_photos/bs/2023/m/e/F8xdjfQDGBUXCLqg7oMw/21.jpg"
+    },
+    {
+      "id": "ccf9",
+      "nome_funcionario": "Jubscreudi",
+      "cpf": "178.854.684-99",
+      "telefone": "2799856326",
+      "email": "jubscreudi@gmail.com",
+      "departamento": "RH",
+      "cargo": "Assistente",
+      "fotoUrl": "https://th.bing.com/th/id/R.2196f16c9be19ff73c37d70bbc6b0b0a?rik=cPkgcXn%2bxRqrXQ&pid=ImgRaw&r=0"
+    },
+    {
+      "id": "0358",
+      "nome_funcionario": "Marcos",
+      "cpf": "845.687.987-22",
+      "telefone": "27995026326",
+      "email": "marcosvinicius@gmail.com",
+      "departamento": "RH",
+      "cargo": "Auxiliar",
+      "fotoUrl": "https://tse3.mm.bing.net/th/id/OIP.z2gsKlG9_QisRa7O6paelAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"
     }
   ],
   "categorias": [

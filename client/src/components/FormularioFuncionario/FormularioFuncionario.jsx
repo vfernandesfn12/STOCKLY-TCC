@@ -149,7 +149,27 @@ const FormularioFuncionario = (props) => {
             </FloatingLabel>
           </Col>
 
+          {/* CARGO */}
           <Col md={12} lg={6}>
+          <FloatingLabel controlId="FI-CARGO" label="Cargo" className="mb-5">
+              <Form.Control
+                type="text"
+                {...register("cargo", {
+                  required: "O cargo é obrigatório",
+                  minLength: {
+                    value: 2,
+                    message: "O cargo deve ter pelo menos dois caracteres",
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: "O cargo deve ter no máximo 30 caracteres",
+                  },
+                })}
+              ></Form.Control>
+              {errors.marca && (
+                <p className="error"> {errors.cargo.message} </p>
+              )}
+            </FloatingLabel>
             {/* Foto do Funcionário */}
             <Form.Group controlId="FI-FOTO" className="mb-5">
               <FloatingLabel controlId="FI-FOTO-LINK" label="Link da foto" className="mb-5">
