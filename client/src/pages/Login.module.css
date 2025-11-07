@@ -1,10 +1,10 @@
 .pagelogin {
-  background-color: #1f2d3a;
+  background-color: #F8F9FA;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: 2rem; */
+  border-radius: 85px;
 }
 
 /* DAQUI PARA BAIXO FOI TUDO ACRESCENTADO */
@@ -18,7 +18,7 @@
 
 /* Ajustar o form para responsividade e centralização */
 .formlogin {
-  background-color: #273746;
+  background-color: #9AA0A6;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
@@ -88,7 +88,7 @@ form .btn:hover {
 }
 
 .tituloLogin {
-  color: #ecf0f1;
+  color: #000;
   font-size: 2rem;
   margin-bottom: 2rem;
   font-weight: 500;
@@ -96,7 +96,7 @@ form .btn:hover {
 }
 
 .link {
-  color: #4a90e2;
+  color: rgba(0,0,139 );
   cursor: pointer;
   text-decoration: underline;
   transition: color 0.3s ease;
@@ -104,5 +104,5 @@ form .btn:hover {
 
 /* Efeito ao passar o mouse */
 .link:hover {
-  color: #8ab6f9; /* tom mais claro de azul */
+  color: rgba(0, 0, 128, 0.3); /* tom mais claro de azul */
 }

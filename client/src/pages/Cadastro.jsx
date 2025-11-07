@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import { useNavigate } from "react-router-dom";
-import styles from "./Login.module.css";
+import styles from "./Login.module.css"; // Utilizando o modules da página de Login
 import logo from "../assets/logo.png";
 
 export default function Cadastro() {
@@ -43,7 +43,7 @@ export default function Cadastro() {
   };
 
   return (
-    <div className={styles.pageCadastro}>
+    <div className={styles.pageLogin}> {/* Cor igual ao de Login. */}
       <Container className="justify-content-center align-content-center min-vh-100">
         <Row>
           <Col>
@@ -66,7 +66,12 @@ export default function Cadastro() {
 
               <Form className={styles.formlogin} onSubmit={handleSubmit} style={{ width: "75%", margin: "auto", textAlign: "center" }}>
 
-                <h2 className="text-center text-light mb-4">Cadastro</h2>
+                <h2 
+                  className="text-center text-light mb-4"
+                  className = {styles.tituloLogin}
+                >
+                  Cadastro
+                </h2>
 
                 <FloatingLabel
                   controlId="inputNome"
