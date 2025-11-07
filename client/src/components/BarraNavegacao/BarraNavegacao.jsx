@@ -1,20 +1,10 @@
-// Importando o css da barra de navegação
-import styles from "./BarraNavegacao.module.css";
-
-// Importar os componentes do bootstrap
-import { Nav, Navbar, NavDropdown, Image, Accordion } from "react-bootstrap";
-
-// Importando os links do router
+import { Navbar, Nav, Container, NavDropdown, Image } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-
-// Importar as informações do contexto autenticação de usuário
-import { AuthContext } from "../../contexts/UserContext.jsx";
 import { useContext } from "react";
+import { AuthContext } from "../../contexts/UserContext.jsx";
 
-// Importanto os icones
+// Importar todos os ícones
 import { BsBoxes } from "react-icons/bs";
-import { HiOutlineDocumentChartBar } from "react-icons/hi2";
-import { BiHomeAlt2 } from "react-icons/bi";
 import { LiaAtomSolid } from "react-icons/lia";
 import { HiUserGroup } from "react-icons/hi";
 import { FaHandHoldingUsd } from "react-icons/fa";
@@ -23,205 +13,112 @@ import { FaBoxesStacked } from "react-icons/fa6";
 import { HiMiniDocumentText } from "react-icons/hi2";
 import { RiHome9Fill } from "react-icons/ri";
 
+// Import CSS
+import styles from "./BarraNavegacao.module.css";
+
 const BarraNavegacao = () => {
-  // importar o nome de usuario logado e funcao logout
   const { usuarioNome, logout } = useContext(AuthContext);
-
-  // Guarda o id do usuário atual
   const idAtual = localStorage.getItem("id");
-
-  // Guarda a imagem do usuário atual
   const imagemAtual = localStorage.getItem("imagemPerfil");
-
-  // Imagem padrão
   const semImagem = "https://cdn-icons-png.flaticon.com/512/17/17004.png";
+
   return (
-    <div
-      className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark min-vh-100 max-vh-100"
-      style={{ width: "250px" }}
-    >
-      {/* Logo da empresa */}
-      <Navbar.Brand as={NavLink} to="/home" className="text-white mb-3">
-        <LiaAtomSolid className="fs-4" />
-        <span className="fs-5 ms-2">STOCKLY</span>
-      </Navbar.Brand>
+    <div>
+      {/* BARRA SUPERIOR */}
+      <Navbar bg="light" data-bs-theme="light" expand="lg">
+        <Container>
+          <Navbar.Brand as={NavLink} to="/home">
+            <LiaAtomSolid className="fs-4" />
+            <span className="ms-2">STOCKLY</span>
+          </Navbar.Brand>
+          
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-      {/* Opções de menu */}
-      <Nav className="flex-column mb-auto">
-        {/* Opção home */}
-        <Nav.Link as={NavLink} to="/home" className="text-white px-2">
-          <RiHome9Fill className="fs-4" />
-          <span className="fs-5 ms-2">Home</span>
-        </Nav.Link>
+          <Nav className={`me-auto ${styles.nav_link_spacing}`}></Nav>
+          
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link as={NavLink} to="/home">
+                <RiHome9Fill className="me-1" />
+                Home
+              </Nav.Link>
+              
+              <Nav.Link as={NavLink} to="/relatorios">
+                <HiMiniDocumentText className="me-1" />
+                Relatórios
+              </Nav.Link>
 
-        {/* Opção Relatórios */}
-        <Nav.Link as={NavLink} to="/relatorios" className="text-white px-2">
-          <HiMiniDocumentText className="fs-4" />
-          <span className="fs-5 ms-2">Relatórios</span>
-        </Nav.Link>
+              {/* Dropdown Produtos */}
+              <NavDropdown title={<><FaBoxesStacked className="me-1" />Produtos</>} id="produtos-dropdown">
+                <NavDropdown.Item as={NavLink} to="/produtos">
+                  Listar
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/produtos/cadastrar">
+                  Adicionar
+                </NavDropdown.Item>
+              </NavDropdown>
 
-        {/* Criando o arcordeon */}
-        <Accordion flush className="flex-column mb-auto" alwaysOpen>
-          {/* Páginas produtos */}
-          <Accordion.Item eventKey="0" className="bg-dark text-white">
-            <Accordion.Header className={styles.accordionHeader}>
-              <FaBoxesStacked className="fs-4" />
-              <span className="ms-2 fs-5"> Produtos </span>
-            </Accordion.Header>
-            <Accordion.Body className={`p-0 bg-dark ${styles.accordionBody}`}>
-              <Nav className="flex-column">
-                {/* Opção 1 */}
-                <Nav.Link
-                  as={NavLink}
-                  to="/produtos"
-                  className="text-white ps-4"
-                >
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2 fs-5"> Listar </span>
-                </Nav.Link>
+              {/* Dropdown Clientes */}
+              <NavDropdown title={<><FaHandHoldingUsd className="me-1" />Clientes</>} id="clientes-dropdown">
+                <NavDropdown.Item as={NavLink} to="/clientes">
+                  Listar
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/clientes/cadastrar">
+                  Adicionar
+                </NavDropdown.Item>
+              </NavDropdown>
 
-                {/* Opção 2 */}
-                <Nav.Link
-                  as={NavLink}
-                  to="/produtos/cadastrar"
-                  className="text-white ps-4"
-                >
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2 fs-5"> Adicionar </span>
-                </Nav.Link>
-              </Nav>
-            </Accordion.Body>
-          </Accordion.Item>
-          {/* fim produtos */}
+              {/* Dropdown Funcionários */}
+              <NavDropdown title={<><HiUserGroup className="me-1" />Funcionários</>} id="funcionarios-dropdown">
+                <NavDropdown.Item as={NavLink} to="/funcionarios">
+                  Listar
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/funcionarios/cadastrar">
+                  Adicionar
+                </NavDropdown.Item>
+              </NavDropdown>
 
-          {/* Páginas Clientes */}
-          <Accordion.Item eventKey="1" className="bg-dark text-white">
-            <Accordion.Header className={styles.accordionHeader}>
-              <FaHandHoldingUsd className="fs-4" />
-              <span className="ms-2 fs-5"> Clientes </span>
-            </Accordion.Header>
-            <Accordion.Body className={`p-0 bg-dark ${styles.accordionBody}`}>
-              <Nav className="flex-column">
-                {/* Opção 1 */}
-                <Nav.Link
-                  as={NavLink}
-                  to="/clientes"
-                  className="text-white ps-4"
-                >
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2 fs-5"> Listar </span>
-                </Nav.Link>
+              {/* Dropdown Pedidos */}
+              <NavDropdown title={<><HiMiniClipboardDocumentList className="me-1" />Pedidos</>} id="pedidos-dropdown">
+                <NavDropdown.Item as={NavLink} to="/pedidos">
+                  Listar
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/pedidos/cadastrar">
+                  Adicionar
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
 
-                {/* Opção 2 */}
-                <Nav.Link
-                  as={NavLink}
-                  to="/clientes/cadastrar"
-                  className="text-white ps-4"
-                >
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2 fs-5"> Adicionar </span>
-                </Nav.Link>
-              </Nav>
-            </Accordion.Body>
-          </Accordion.Item>
-          {/* fim clientes */}
-
-          {/* Páginas Func */}
-          <Accordion.Item eventKey="2" className="bg-dark text-white">
-            <Accordion.Header className={styles.accordionHeader}>
-              <HiUserGroup className="fs-4" />
-              <span className="ms-2 fs-5"> Funcionários </span>
-            </Accordion.Header>
-            <Accordion.Body className={`p-0 bg-dark ${styles.accordionBody}`}>
-              <Nav className="flex-column">
-                {/* Opção 1 */}
-                <Nav.Link
-                  as={NavLink}
-                  to="/funcionarios"
-                  className="text-white ps-4"
-                >
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2 fs-5"> Listar </span>
-                </Nav.Link>
-
-                {/* Opção 2 */}
-                <Nav.Link
-                  as={NavLink}
-                  to="/funcionarios/cadastrar"
-                  className="text-white ps-4"
-                >
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2 fs-5"> Adicionar </span>
-                </Nav.Link>
-              </Nav>
-            </Accordion.Body>
-          </Accordion.Item>
-          {/* fim Func */}
-
-          {/* Páginas Pedidos */}
-          <Accordion.Item eventKey="3" className="bg-dark text-white">
-            <Accordion.Header className={styles.accordionHeader}>
-              <HiMiniClipboardDocumentList className="fs-4" />
-              <span className="ms-2 fs-5"> Pedidos </span>
-            </Accordion.Header>
-            <Accordion.Body className={`p-0 bg-dark ${styles.accordionBody}`}>
-              <Nav className="flex-column">
-                {/* Opção 1 */}
-                <Nav.Link
-                  as={NavLink}
-                  to="/pedidos"
-                  className="text-white ps-4"
-                >
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2 fs-5"> Listar </span>
-                </Nav.Link>
-
-                {/* Opção 2 */}
-                <Nav.Link
-                  as={NavLink}
-                  to="/pedidos/cadastrar"
-                  className="text-white ps-4"
-                >
-                  <BsBoxes className="fs-5" />
-                  <span className="ms-2 fs-5"> Adicionar </span>
-                </Nav.Link>
-              </Nav>
-            </Accordion.Body>
-          </Accordion.Item>
-          {/* fim pedidos */}
-
-        </Accordion>
-      </Nav>
-
-      <hr className="border-secondary" />
-
-      <Nav className="dropdown pb-4">
-        <NavDropdown
-          title={
-            <span className="text-white align-items-center">
-              <Image
-                src={imagemAtual == "null" ? semImagem : imagemAtual}
-                width={50}
-                height={50}
-                roundedCircle
-                className="me-2 fs-5"
-              />
-              {usuarioNome}
-            </span>
-          }
-          menuVariant="dark"
-        >
-          {/* Editar perfil  */}
-          <NavDropdown.Item as={NavLink} to={`/funcionarios/editar/${idAtual}`}>
-            Editar
-          </NavDropdown.Item>
-
-          {/* Voltar Login  */}
-          <NavDropdown.Item as={NavLink} to="/login" onClick={logout}>
-            Sair
-          </NavDropdown.Item>
-        </NavDropdown>
-      </Nav>
+            {/* Perfil do usuário */}
+            <Nav>
+              <NavDropdown
+                title={
+                  <span className="d-flex align-items-center">
+                    <Image
+                      src={imagemAtual === "null" ? semImagem : imagemAtual}
+                      width={32}
+                      height={32}
+                      roundedCircle
+                      className="me-2"
+                    />
+                    {usuarioNome}
+                  </span>
+                }
+                id="user-dropdown"
+                align="end"
+              >
+                <NavDropdown.Item as={NavLink} to={`/funcionarios/editar/${idAtual}`}>
+                  Editar Perfil
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item as={NavLink} to="/login" onClick={logout}>
+                  Sair
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </div>
   );
 };

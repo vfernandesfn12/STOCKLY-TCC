@@ -20,7 +20,6 @@
   border: none !important;
   color: #fff !important;
   box-shadow: none !important;
-  padding: 8px !important;
 }
 
 :global(.accordion-button::after) {
@@ -29,4 +28,19 @@
 
 :global(.accordion-button:not(.collapsed)::after) {
   filter: invert(1);
+}
+
+.nav_link_spacing :global(.nav-link),
+.nav_link_spacing :global(.dropdown) {
+  /* Maior espaçamento horizontal (desktop). Usando '1.5rem' para um "respiro" maior que o padrão. */
+  margin-inline-end: 1.5rem !important;
+
+  /* Espaçamento vertical (mobile/colapsado) */
+  margin-block-end: 0.5rem !important;
+}
+
+/* Remove a margem extra do último item para não desalinhar */
+.nav_link_spacing :global(.nav-link:last-child),
+.nav_link_spacing :global(.dropdown:last-child) {
+  margin-inline-end: 0 !important;
 }
