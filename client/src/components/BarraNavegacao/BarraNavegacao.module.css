@@ -1,217 +1,199 @@
-/* Trocando a cor do body  */
-:global(.accordion-body) {
-  background-color: #212529 !important;
-  color: #fff !important;
-  border: none !important;
-}
-
-:global(.accordion-item) {
-  background-color: #212529 !important;
-  border: none !important;
-}
-
-:global(.accordion-header) {
-  border: none !important;
-  padding: 0 !important;
-}
-
+/* 
+  ====== ESTILIZAÇÃO GERAL DO ACORDEÃO ======
+  Aplica fundo escuro, texto branco e remove bordas e sombras
+  para dar aparência mais limpa e uniforme ao acordeão.
+*/
+:global(.accordion-item),
+:global(.accordion-body),
 :global(.accordion-button) {
-  background-color: #212529 !important;
-  border: none !important;
-  color: #fff !important;
-  box-shadow: none !important;
+  background-color: #212529; /* Fundo escuro (tom de cinza quase preto) */
+  color: #fff;               /* Texto branco para contraste */
+  border: none;              /* Remove bordas padrão do Bootstrap */
+  box-shadow: none;          /* Remove sombreamento padrão */
 }
 
-:global(.accordion-button::after) {
-  filter: invert(1);
+/* 
+  Remove bordas e padding extras do cabeçalho do acordeão
+  para um visual mais compacto e alinhado com o tema escuro.
+*/
+:global(.accordion-header) {
+  border: none;
+  padding: 0;
 }
 
+/* 
+  Inverte a cor do ícone (seta) do botão do acordeão
+  para ficar visível sobre o fundo escuro.
+*/
+:global(.accordion-button::after),
 :global(.accordion-button:not(.collapsed)::after) {
-  filter: invert(1);
+  filter: invert(1); /* Inverte a cor (preto → branco, branco → preto) */
 }
 
-.nav_link_spacing :global(.nav-link),
-.nav_link_spacing :global(.dropdown) {
-  /* Maior espaçamento horizontal (desktop). Usando '1.5rem' para um "respiro" maior que o padrão. */
-  margin-inline-end: 1.5rem !important;
-
-  /* Espaçamento vertical (mobile/colapsado) */
-  margin-block-end: 0.5rem !important;
-}
-
-/* Remove a margem extra do último item para não desalinhar */
-.nav_link_spacing :global(.nav-link:last-child),
-.nav_link_spacing :global(.dropdown:last-child) {
-  margin-inline-end: 0 !important;
-}
-
-/* Links principais do menu (Home, Relatórios, etc.) */
-:global(.navbar-nav .nav-link) {
-  font-size: 2rem !important;
-  font-weight: 500;
-  /* color: #fff !important; */
-}
-
-/* Marca (título STOCKLY) */
-:global(.navbar-brand) {
-  font-size: 2.1rem !important;
-  font-weight: 600;
-  /* color: #fff !important; */
-}
-
-/* Itens dos dropdowns (Listar, Adicionar, etc.) */
-:global(.dropdown-menu .dropdown-item) {
-  font-size: 2.1rem !important;
-  color: #212529 !important;
-}
-
-/* Nome do usuário e menu do perfil */
-:global(#user-dropdown span) {
-  font-size: 2.1rem !important;
-  /* color: #fff !important; */
-}
-
-/* Ícones do menu (aumenta ligeiramente o tamanho) */
-:global(.navbar-nav svg) {
-  font-size: 2.1rem !important;
-  vertical-align: middle;
-}
-
-/* Alinha os links e dropdowns ao centro verticalmente */
-:global(.navbar-nav .nav-link),
-:global(.navbar-nav .dropdown-toggle) {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.4rem; /* Espaço entre ícone e texto */
-  line-height: 1.2 !important;
-  padding-top: 0.5rem !important;
-  padding-bottom: 0.5rem !important;
-}
-
-/* Corrige altura da barra e centraliza o conteúdo */
+/* 
+  ====== ESTILIZAÇÃO DA NAVBAR ======
+  Define layout principal da barra de navegação:
+  - Itens centralizados verticalmente
+  - Espaçamento entre marca e links
+  - Barra ocupa 100% da largura
+*/
 :global(.navbar) {
-  min-height: 75px !important; /* ajusta a altura geral da navbar */
-  display: flex !important;
-  align-items: center !important;
+  display: flex;
+  align-items: center;         /* Centraliza os itens verticalmente */
+  justify-content: space-between; /* Espaça o conteúdo nas extremidades */
+  flex-wrap: nowrap;           /* Impede quebra de linha dos itens */
+  width: 100%;
+  min-height: 70px;            /* Altura mínima da barra */
+  padding: 0.3rem 1rem;        /* Espaçamento interno */
 }
 
-/* Centraliza o nome e ícone do usuário */
-:global(#user-dropdown > span) {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.5rem;
-}
-
-/* Ajusta o posicionamento dos ícones */
-:global(.navbar-nav svg) {
-  font-size: 2rem !important;
-  margin-top: 0.1rem; /* ligeiro ajuste para alinhar com o texto */
-}
-
-/* Ajusta espaçamento dos dropdowns */
-:global(.dropdown-toggle::after) {
-  margin-left: 0.3rem !important;
-  transform: translateY(1px); /* desce levemente a setinha */
-}
-
-/* Aproxima o logo (STOCKLY) do canto esquerdo */
-:global(.navbar .container) {
-  padding-left: 0.8rem !important;
-  padding-right: 0.8rem !important;
-}
-
-/* Ajusta a posição do logo e ícone */
-:global(.navbar-brand) {
-  margin-right: 1.2rem !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.4rem !important;
-}
-
-/* Reduz o espaço entre os links para caber em uma linha */
-.nav_link_spacing :global(.nav-link),
-.nav_link_spacing :global(.dropdown) {
-  margin-inline-end: 0.8rem !important;
-  margin-block-end: 0 !important;
-}
-
-/* Remove margem extra do último item */
-.nav_link_spacing :global(.nav-link:last-child),
-.nav_link_spacing :global(.dropdown:last-child) {
-  margin-inline-end: 0 !important;
-}
-
-/* Centraliza verticalmente tudo e reduz ligeiramente a altura */
-:global(.navbar) {
-  min-height: 70px !important;
-  display: flex !important;
-  align-items: center !important;
-}
-
-/* Mantém o nome e imagem do usuário alinhados */
-:global(#user-dropdown > span) {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.4rem;
-}
-
-/* Ícones e texto com espaçamento suave */
-:global(.navbar-nav .nav-link),
-:global(.navbar-nav .dropdown-toggle) {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.3rem;
-  line-height: 1.2 !important;
-}
-
-/* Garante que a navbar use toda a largura disponível */
-:global(.navbar) {
-  width: 100% !important;
-  flex-wrap: nowrap !important;
-  justify-content: space-between !important;
-  padding-inline: 1rem !important;
-}
-
-/* Deixa o container realmente full width */
+/* 
+  Container interno da navbar:
+  garante espaçamento horizontal e centralização do conteúdo.
+*/
 :global(.navbar .container-fluid) {
-  max-width: 100% !important;
-  padding-left: 0.8rem !important;
-  padding-right: 0.8rem !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  flex-wrap: nowrap !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 0.8rem; /* Espaço horizontal interno */
+  max-width: 100%;
 }
 
-/* Logo (STOCKLY) encostado à esquerda */
+/* 
+  ====== LOGO E TÍTULO (navbar-brand) ======
+  Define o layout da marca na navbar (logo + texto).
+*/
 :global(.navbar-brand) {
-  margin-left: 0 !important;
-  margin-right: 1rem !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.4rem !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;          /* Espaço entre logo e texto */
+  font-size: 1.9rem;    /* Tamanho do texto da marca */
+  font-weight: 600;     /* Negrito moderado */
+  margin-right: 1rem;
+  white-space: nowrap;  /* Impede quebra de linha no nome */
 }
 
-/* Diminui ligeiramente o espaçamento entre os itens */
+/* Define o tamanho da imagem da logo */
+:global(.navbar-brand img) {
+  width: 45px;
+  height: 45px;
+}
+
+/* 
+  ====== ESPAÇAMENTO ENTRE LINKS DA NAVBAR ======
+  Aplica margem horizontal entre links e dropdowns.
+*/
 .nav_link_spacing :global(.nav-link),
 .nav_link_spacing :global(.dropdown) {
-  margin-inline-end: 0.6rem !important;
+  margin-inline-end: 1rem;
 }
 
-/* Ícones e textos centralizados e proporcionais */
+/* 
+  ====== LINKS E DROPDOWNS ======
+  Define aparência e alinhamento dos links na navbar.
+*/
 :global(.navbar-nav .nav-link),
 :global(.navbar-nav .dropdown-toggle) {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.25rem !important;
-  font-size: 1.9rem !important;
-  white-space: nowrap !important; /* Evita quebra de linha */
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;         /* Espaço entre ícone e texto */
+  font-size: 1.1rem;
+  line-height: 1.2;
+  white-space: nowrap; /* Evita quebra de linha em links longos */
 }
 
-/* Ajusta dropdown do usuário */
+/* 
+  Ícones dentro dos links:
+  Define tamanho e alinhamento vertical para melhor proporção.
+*/
+:global(.navbar-nav svg) {
+  font-size: 1.2rem;
+  vertical-align: middle;
+  margin-top: 0.1rem;
+}
+
+/* 
+  Ajusta a seta do dropdown (setinha que indica menu).
+*/
+:global(.dropdown-toggle::after) {
+  margin-left: 0.3rem;     /* Distância entre texto e seta */
+  transform: translateY(1px); /* Ajuste fino vertical */
+}
+
+/* 
+  Itens dentro do menu dropdown:
+  Define fonte e cor do texto.
+*/
+:global(.dropdown-menu .dropdown-item) {
+  font-size: 1rem;
+  color: #212529; /* Tom escuro padrão */
+}
+
+/* 
+  Usuário (no dropdown de perfil, por exemplo):
+  Alinha ícone e nome lado a lado com espaçamento.
+*/
 :global(#user-dropdown span) {
-  display: flex !important;
-  align-items: center !important;
+  display: flex;
+  align-items: center;
   gap: 0.4rem;
-  white-space: nowrap !important;
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+/* 
+  ====== RESPONSIVIDADE ======
+  Ajustes para telas menores (até 991px de largura)
+*/
+@media (max-width: 991px) {
+  :global(.navbar) {
+    flex-wrap: wrap;          /* Permite quebra de linha */
+    justify-content: center;  /* Centraliza os itens */
+    text-align: center;
+  }
+
+  :global(.navbar-brand) {
+    margin: 0 auto 0.5rem; /* Centraliza a marca */
+    font-size: 1.3rem;     /* Reduz tamanho do texto */
+  }
+
+  :global(.navbar-brand img) {
+    width: 35px;
+    height: 35px; /* Logo menor */
+  }
+
+  :global(.navbar-collapse) {
+    width: 100%;
+    text-align: center;
+  }
+
+  :global(.navbar-nav) {
+    flex-direction: column; /* Empilha os links verticalmente */
+    align-items: center;
+    gap: 0.6rem; /* Espaçamento entre os itens */
+  }
+
+  :global(.dropdown-menu) {
+    text-align: center; /* Centraliza itens do menu */
+  }
+}
+
+/* 
+  ====== TELAS MUITO PEQUENAS ======
+  Ajustes extras para dispositivos até 400px de largura
+*/
+@media (max-width: 400px) {
+  :global(.navbar-brand span) {
+    font-size: 1rem; /* Texto da marca menor */
+  }
+
+  :global(.navbar-brand img) {
+    width: 28px;
+    height: 28px; /* Logo ainda menor */
+  }
+
+  :global(.navbar-nav .nav-link),
+  :global(.navbar-nav .dropdown-toggle) {
+    font-size: 0.95rem; /* Texto dos links reduzido */
+  }
 }

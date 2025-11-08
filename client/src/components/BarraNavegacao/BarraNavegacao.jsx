@@ -1,135 +1,168 @@
+// Importação de componentes do React-Bootstrap que serão usados na barra de navegação
 import { Navbar, Nav, Container, NavDropdown, Image } from "react-bootstrap";
+
+// Importa o NavLink do React Router para criar links com navegação SPA (sem recarregar a página)
 import { NavLink } from "react-router-dom";
+
+// Importa o useContext para acessar dados globais do contexto de autenticação
 import { useContext } from "react";
-import { AuthContext } from "../../contexts/UserContext.jsx";
+import { AuthContext } from "../../contexts/UserContext.jsx"; // contexto de autenticação do usuário
 
-// Importar todos os ícones
-import { HiUserGroup } from "react-icons/hi";
-import { FaHandHoldingUsd } from "react-icons/fa";
-import { HiMiniClipboardDocumentList } from "react-icons/hi2";
-import { FaBoxesStacked } from "react-icons/fa6";
-import { HiMiniDocumentText } from "react-icons/hi2";
-import { RiHome9Fill } from "react-icons/ri";
+// ===== ÍCONES =====
+import { HiUserGroup } from "react-icons/hi"; // Ícone de grupo de usuários (funcionários)
+import { FaHandHoldingUsd } from "react-icons/fa"; // Ícone de cliente (mão segurando dinheiro)
+import { HiMiniClipboardDocumentList } from "react-icons/hi2"; // Ícone de pedidos (prancheta)
+import { FaBoxesStacked } from "react-icons/fa6"; // Ícone de produtos (caixas empilhadas)
+import { HiMiniDocumentText } from "react-icons/hi2"; // Ícone de relatórios (documento)
+import { RiHome9Fill } from "react-icons/ri"; // Ícone de casa (home)
 
-// Import CSS
-import styles from "./BarraNavegacao.module.css";
+// ===== CSS e LOGO =====
+import styles from "./BarraNavegacao.module.css"; // estilos personalizados da navbar
+import logo from "../../../src/assets/logo.png"; // logo da aplicação
 
-// Import da Logo
-import logo from "../../../src/assets/logo.png";
-
-
+// ===== COMPONENTE PRINCIPAL =====
 const BarraNavegacao = () => {
+  // Pega dados do contexto (nome do usuário e função de logout)
   const { usuarioNome, logout } = useContext(AuthContext);
-  const idAtual = localStorage.getItem("id");
-  const imagemAtual = localStorage.getItem("imagemPerfil");
-  const semImagem = "https://cdn-icons-png.flaticon.com/512/17/17004.png";
+
+  // Recupera informações armazenadas no localStorage
+  const idAtual = localStorage.getItem("id"); // ID do usuário logado
+  const imagemAtual = localStorage.getItem("imagemPerfil"); // URL da imagem do perfil
+  const semImagem = "https://cdn-icons-png.flaticon.com/512/17/17004.png"; // imagem padrão
 
   return (
-    <div>
+    // Navbar principal do React-Bootstrap
+    // bg="light" → fundo claro | expand="lg" → colapsa em telas pequenas
+    <Navbar bg="light" expand="lg" className={`${styles.navbar} shadow-sm`}>
+      {/* Container fluido (ocupa 100% da largura) */}
+      <Container fluid className={styles.nav_link_spacing}>
+        
+        {/* ==== LOGO + NOME ==== */}
+        <Navbar.Brand as={NavLink} to="/home" className="d-flex align-items-center">
+          {/* Logo da empresa */}
+          <Image
+            src={logo}
+            alt="Logo da empresa"
+            width={45}
+            height={45}
+            className="me-2" // margem direita
+          />
+          {/* Nome da marca */}
+          <span className="fw-bold fs-4">STOCKLY</span>
+        </Navbar.Brand>
 
-      {/* BARRA SUPERIOR */}
-      <Navbar bg="light" data-bs-theme="light" expand="lg">
-        <Container fluid>
-          <Navbar.Brand as={NavLink} to="/home">
-            <Image
-              src={logo}
-              alt="Logo da empresa"
-              width={150}
-              height={150}
-              className="me-2"
-            />
-            <span className="ms-2">STOCKLY</span>
-          </Navbar.Brand>
-          
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        {/* ==== BOTÃO HAMBÚRGUER ==== 
+            Aparece em telas pequenas para expandir/recolher o menu */}
+        <Navbar.Toggle aria-controls="navbarResponsive" />
 
-          <Nav className={`me-auto ${styles.nav_link_spacing}`}></Nav>
-          
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link as={NavLink} to="/home">
-                <RiHome9Fill className="me-1" />
-                Home
-              </Nav.Link>
-              
-              <Nav.Link as={NavLink} to="/relatorios">
-                <HiMiniDocumentText className="me-1" />
-                Relatórios
-              </Nav.Link>
+        {/* ==== ÁREA DE ITENS DO MENU ==== */}
+        <Navbar.Collapse id="navbarResponsive">
+          {/* Seção de navegação principal (à esquerda) */}
+          <Nav className="me-auto">
+            {/* Link para Home */}
+            <Nav.Link as={NavLink} to="/home">
+              <RiHome9Fill className="me-1" /> {/* Ícone */}
+              Home
+            </Nav.Link>
 
-              {/* Dropdown Produtos */}
-              <NavDropdown title={<><FaBoxesStacked className="me-1" />Produtos</>} id="produtos-dropdown">
-                <NavDropdown.Item as={NavLink} to="/produtos">
-                  Listar
-                </NavDropdown.Item>
-                <NavDropdown.Item as={NavLink} to="/produtos/cadastrar">
-                  Adicionar
-                </NavDropdown.Item>
-              </NavDropdown>
+            {/* Link para Relatórios */}
+            <Nav.Link as={NavLink} to="/relatorios">
+              <HiMiniDocumentText className="me-1" />
+              Relatórios
+            </Nav.Link>
 
-              {/* Dropdown Clientes */}
-              <NavDropdown title={<><FaHandHoldingUsd className="me-1" />Clientes</>} id="clientes-dropdown">
-                <NavDropdown.Item as={NavLink} to="/clientes">
-                  Listar
-                </NavDropdown.Item>
-                <NavDropdown.Item as={NavLink} to="/clientes/cadastrar">
-                  Adicionar
-                </NavDropdown.Item>
-              </NavDropdown>
+            {/* ===== MENU PRODUTOS ===== */}
+            <NavDropdown
+              title={<><FaBoxesStacked className="me-1" />Produtos</>}
+              id="produtos-dropdown"
+            >
+              <NavDropdown.Item as={NavLink} to="/produtos">
+                Listar
+              </NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/produtos/cadastrar">
+                Adicionar
+              </NavDropdown.Item>
+            </NavDropdown>
 
-              {/* Dropdown Funcionários */}
-              <NavDropdown title={<><HiUserGroup className="me-1" />Funcionários</>} id="funcionarios-dropdown">
-                <NavDropdown.Item as={NavLink} to="/funcionarios">
-                  Listar
-                </NavDropdown.Item>
-                <NavDropdown.Item as={NavLink} to="/funcionarios/cadastrar">
-                  Adicionar
-                </NavDropdown.Item>
-              </NavDropdown>
+            {/* ===== MENU CLIENTES ===== */}
+            <NavDropdown
+              title={<><FaHandHoldingUsd className="me-1" />Clientes</>}
+              id="clientes-dropdown"
+            >
+              <NavDropdown.Item as={NavLink} to="/clientes">
+                Listar
+              </NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/clientes/cadastrar">
+                Adicionar
+              </NavDropdown.Item>
+            </NavDropdown>
 
-              {/* Dropdown Pedidos */}
-              <NavDropdown title={<><HiMiniClipboardDocumentList className="me-1" />Pedidos</>} id="pedidos-dropdown">
-                <NavDropdown.Item as={NavLink} to="/pedidos">
-                  Listar
-                </NavDropdown.Item>
-                <NavDropdown.Item as={NavLink} to="/pedidos/cadastrar">
-                  Adicionar
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
+            {/* ===== MENU FUNCIONÁRIOS ===== */}
+            <NavDropdown
+              title={<><HiUserGroup className="me-1" />Funcionários</>}
+              id="funcionarios-dropdown"
+            >
+              <NavDropdown.Item as={NavLink} to="/funcionarios">
+                Listar
+              </NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/funcionarios/cadastrar">
+                Adicionar
+              </NavDropdown.Item>
+            </NavDropdown>
 
-            {/* Perfil do usuário */}
-            <Nav>
-              <NavDropdown
-                title={
-                  <span className="d-flex align-items-center">
-                    <Image
-                      src={imagemAtual === "null" ? semImagem : imagemAtual}
-                      width={70}
-                      height={70}
-                      roundedCircle
-                      className="me-2"
-                    />
-                    {usuarioNome}
-                  </span>
-                }
-                id="user-dropdown"
-                align="end"
-              >
-                <NavDropdown.Item as={NavLink} to={`/funcionarios/editar/${idAtual}`}>
-                  Editar Perfil
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={NavLink} to="/login" onClick={logout}>
-                  Sair
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </div>
+            {/* ===== MENU PEDIDOS ===== */}
+            <NavDropdown
+              title={<><HiMiniClipboardDocumentList className="me-1" />Pedidos</>}
+              id="pedidos-dropdown"
+            >
+              <NavDropdown.Item as={NavLink} to="/pedidos">
+                Listar
+              </NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/pedidos/cadastrar">
+                Adicionar
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+
+          {/* ==== PERFIL DO USUÁRIO ==== */}
+          <Nav>
+            <NavDropdown
+              align="end" // abre o menu alinhado à direita
+              title={
+                <span id="user-dropdown" className="d-flex align-items-center">
+                  {/* Mostra imagem de perfil do usuário (ou imagem padrão) */}
+                  <Image
+                    src={imagemAtual === "null" ? semImagem : imagemAtual}
+                    width={50}
+                    height={50}
+                    roundedCircle // bordas arredondadas
+                    className="me-2"
+                  />
+                  {/* Nome do usuário logado */}
+                  {usuarioNome}
+                </span>
+              }
+              id="dropdown-usuario"
+            >
+              {/* Opção de editar o próprio perfil */}
+              <NavDropdown.Item as={NavLink} to={`/funcionarios/editar/${idAtual}`}>
+                Editar Perfil
+              </NavDropdown.Item>
+
+              {/* Linha divisória */}
+              <NavDropdown.Divider />
+
+              {/* Botão de logout */}
+              <NavDropdown.Item as={NavLink} to="/login" onClick={logout}>
+                Sair
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 
+// Exporta o componente para uso em outras partes da aplicação
 export default BarraNavegacao;
