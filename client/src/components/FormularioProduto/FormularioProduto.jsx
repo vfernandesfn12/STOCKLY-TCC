@@ -5,7 +5,6 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-
 // Importando a função useform do pacote hook-form
 import { useForm, Watch } from "react-hook-form";
 
@@ -13,10 +12,9 @@ import { useForm, Watch } from "react-hook-form";
 import { useInserirProduto } from "../../hooks/useProdutos";
 
 const FormularioProduto = (props) => {
-
-//IMPORTAÇÂO DAS FUNÇÕES DO HOOK USEPRODUTOS
-//usando a função de inserir produto
-const { inserirProduto } = useInserirProduto();
+  //IMPORTAÇÂO DAS FUNÇÕES DO HOOK USEPRODUTOS
+  //usando a função de inserir produto
+  const { inserirProduto } = useInserirProduto();
 
   // register = cria um objeto com os valores retirados dos inputs
   // handleSumbit = envia os dados formulário, caso dê erro ou sucesso
@@ -26,7 +24,7 @@ const { inserirProduto } = useInserirProduto();
     handleSubmit,
     formState: { errors },
     watch,
-    reset
+    reset,
   } = useForm();
 
   // FUNÇÕES QUE LIDAM COM O SUCESSO OU ERRO DO FORMUÁRIO
@@ -51,18 +49,20 @@ const { inserirProduto } = useInserirProduto();
 
   return (
     <div className="text-center">
-      <Form className="mt-3 w-full" onSubmit={handleSubmit(onSubmit, onError)}
-      style={{maxWidth:"720px", marginLeft:"280px"}}>
-        <Form.Label as="h1" className="text-center mb-4 text-white">
-          {" "}
-          Cadastrar Produto{" "}
+      <Form
+        className="mt-3 w-full"
+        onSubmit={handleSubmit(onSubmit, onError)}
+        style={{ maxWidth: "720px", marginLeft: "280px" }}
+      >
+        <Form.Label as="h1" className="text-center mb-4 text-dark">
+          Cadastrar Produto
         </Form.Label>
         <Row>
           <Col md={12} lg={12}>
             {/* Caixinha de Nome */}
             <FloatingLabel controlId="FI-NOME" label="Nome" className="mb-5">
               <Form.Control
-                style={{ backgroundColor: "#5F6D7C", borderColor: "#5F6D7C" }}
+                style={{ backgroundColor: "#FFF", borderColor: "#5F6D7C" }}
                 type="text"
                 {...register("nome", {
                   required: "O nome é obrigatório",
@@ -87,7 +87,7 @@ const { inserirProduto } = useInserirProduto();
               className="mb-5"
             >
               <Form.Control
-                style={{ backgroundColor: "#5F6D7C", borderColor: "#5F6D7C" }}
+                style={{ backgroundColor: "#FFF", borderColor: "#5F6D7C" }}
                 type="text"
                 {...register("codigo", {
                   required: "O código é obrigatório",
@@ -116,7 +116,7 @@ const { inserirProduto } = useInserirProduto();
               <Form.Control
                 style={{
                   height: "120px",
-                  backgroundColor: "#5F6D7C",
+                  backgroundColor: "#FFF",
                   borderColor: "#5F6D7C",
                 }} // Altura maior
                 as="textarea" // isso transforma em área de texto
@@ -147,7 +147,7 @@ const { inserirProduto } = useInserirProduto();
             <FloatingLabel controlId="FI-DATAENTRADA" label="Data Entrada">
               <Form.Control
                 type="date"
-                style={{ backgroundColor: "#5F6D7C", borderColor: "#5F6D7C" }}
+                style={{ backgroundColor: "#FFF", borderColor: "#5F6D7C" }}
                 {...register("dataEntrada", {
                   required: "A data de entrada é obrigatória",
                 })}
@@ -161,7 +161,7 @@ const { inserirProduto } = useInserirProduto();
             <FloatingLabel controlId="FI-TIPOPRODUTO" label="Tipo do Produto">
               <Form.Control
                 type="text"
-                style={{ backgroundColor: "#5F6D7C", borderColor: "#5F6D7C" }}
+                style={{ backgroundColor: "#FFF", borderColor: "#5F6D7C" }}
                 {...register("tipoProduto", {
                   required: "O tipo do produto é obrigatória",
                   minLength: {
@@ -189,7 +189,7 @@ const { inserirProduto } = useInserirProduto();
             <FloatingLabel controlId="FI-DATAVALIDADE" label="Data Validade">
               <Form.Control
                 type="date"
-                style={{ backgroundColor: "#5F6D7C", borderColor: "#5F6D7C" }}
+                style={{ backgroundColor: "#FFF", borderColor: "#5F6D7C" }}
                 {...register("dataValidade", {
                   required: "A data de validade é obrigatório",
                   min: {
@@ -208,7 +208,7 @@ const { inserirProduto } = useInserirProduto();
               <Form.Control
                 type="number"
                 step="0.01"
-                style={{ backgroundColor: "#5F6D7C", borderColor: "#5F6D7C" }}
+                style={{ backgroundColor: "#FFF", borderColor: "#5F6D7C" }}
                 {...register("valor", {
                   required: "O valor é obrigatório",
                   min: {
@@ -244,6 +244,6 @@ const { inserirProduto } = useInserirProduto();
       </Form>
     </div>
   );
-}
+};
 
-export default FormularioProduto
+export default FormularioProduto;

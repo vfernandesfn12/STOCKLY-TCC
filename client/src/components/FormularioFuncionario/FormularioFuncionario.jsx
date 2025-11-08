@@ -60,7 +60,7 @@ const FormularioFuncionario = (props) => {
         className="mt-3 w-full"
         onSubmit={handleSubmit(onSubmit, onError)}
       >
-        <h1 className="mb-5">Cadastro de Funcionário</h1>
+        <h1 className="mb-5 text-dark">Cadastro de Funcionário</h1>
         <Row>
           <Col md={12} lg={6}>
             {/* Nome do Funcionário */}

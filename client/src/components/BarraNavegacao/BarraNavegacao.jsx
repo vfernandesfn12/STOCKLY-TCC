@@ -4,8 +4,6 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/UserContext.jsx";
 
 // Importar todos os ícones
-import { BsBoxes } from "react-icons/bs";
-import { LiaAtomSolid } from "react-icons/lia";
 import { HiUserGroup } from "react-icons/hi";
 import { FaHandHoldingUsd } from "react-icons/fa";
 import { HiMiniClipboardDocumentList } from "react-icons/hi2";
@@ -16,6 +14,10 @@ import { RiHome9Fill } from "react-icons/ri";
 // Import CSS
 import styles from "./BarraNavegacao.module.css";
 
+// Import da Logo
+import logo from "../../../src/assets/logo.png";
+
+
 const BarraNavegacao = () => {
   const { usuarioNome, logout } = useContext(AuthContext);
   const idAtual = localStorage.getItem("id");
@@ -24,11 +26,18 @@ const BarraNavegacao = () => {
 
   return (
     <div>
+
       {/* BARRA SUPERIOR */}
       <Navbar bg="light" data-bs-theme="light" expand="lg">
-        <Container>
+        <Container fluid>
           <Navbar.Brand as={NavLink} to="/home">
-            <LiaAtomSolid className="fs-4" />
+            <Image
+              src={logo}
+              alt="Logo da empresa"
+              width={150}
+              height={150}
+              className="me-2"
+            />
             <span className="ms-2">STOCKLY</span>
           </Navbar.Brand>
           
@@ -96,8 +105,8 @@ const BarraNavegacao = () => {
                   <span className="d-flex align-items-center">
                     <Image
                       src={imagemAtual === "null" ? semImagem : imagemAtual}
-                      width={32}
-                      height={32}
+                      width={70}
+                      height={70}
                       roundedCircle
                       className="me-2"
                     />

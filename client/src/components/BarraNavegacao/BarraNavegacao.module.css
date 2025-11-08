@@ -1,7 +1,7 @@
 /* Trocando a cor do body  */
 :global(.accordion-body) {
   background-color: #212529 !important;
-  color: white !important;
+  color: #fff !important;
   border: none !important;
 }
 
@@ -43,4 +43,175 @@
 .nav_link_spacing :global(.nav-link:last-child),
 .nav_link_spacing :global(.dropdown:last-child) {
   margin-inline-end: 0 !important;
+}
+
+/* Links principais do menu (Home, Relatórios, etc.) */
+:global(.navbar-nav .nav-link) {
+  font-size: 2rem !important;
+  font-weight: 500;
+  /* color: #fff !important; */
+}
+
+/* Marca (título STOCKLY) */
+:global(.navbar-brand) {
+  font-size: 2.1rem !important;
+  font-weight: 600;
+  /* color: #fff !important; */
+}
+
+/* Itens dos dropdowns (Listar, Adicionar, etc.) */
+:global(.dropdown-menu .dropdown-item) {
+  font-size: 2.1rem !important;
+  color: #212529 !important;
+}
+
+/* Nome do usuário e menu do perfil */
+:global(#user-dropdown span) {
+  font-size: 2.1rem !important;
+  /* color: #fff !important; */
+}
+
+/* Ícones do menu (aumenta ligeiramente o tamanho) */
+:global(.navbar-nav svg) {
+  font-size: 2.1rem !important;
+  vertical-align: middle;
+}
+
+/* Alinha os links e dropdowns ao centro verticalmente */
+:global(.navbar-nav .nav-link),
+:global(.navbar-nav .dropdown-toggle) {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem; /* Espaço entre ícone e texto */
+  line-height: 1.2 !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+/* Corrige altura da barra e centraliza o conteúdo */
+:global(.navbar) {
+  min-height: 75px !important; /* ajusta a altura geral da navbar */
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Centraliza o nome e ícone do usuário */
+:global(#user-dropdown > span) {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem;
+}
+
+/* Ajusta o posicionamento dos ícones */
+:global(.navbar-nav svg) {
+  font-size: 2rem !important;
+  margin-top: 0.1rem; /* ligeiro ajuste para alinhar com o texto */
+}
+
+/* Ajusta espaçamento dos dropdowns */
+:global(.dropdown-toggle::after) {
+  margin-left: 0.3rem !important;
+  transform: translateY(1px); /* desce levemente a setinha */
+}
+
+/* Aproxima o logo (STOCKLY) do canto esquerdo */
+:global(.navbar .container) {
+  padding-left: 0.8rem !important;
+  padding-right: 0.8rem !important;
+}
+
+/* Ajusta a posição do logo e ícone */
+:global(.navbar-brand) {
+  margin-right: 1.2rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+}
+
+/* Reduz o espaço entre os links para caber em uma linha */
+.nav_link_spacing :global(.nav-link),
+.nav_link_spacing :global(.dropdown) {
+  margin-inline-end: 0.8rem !important;
+  margin-block-end: 0 !important;
+}
+
+/* Remove margem extra do último item */
+.nav_link_spacing :global(.nav-link:last-child),
+.nav_link_spacing :global(.dropdown:last-child) {
+  margin-inline-end: 0 !important;
+}
+
+/* Centraliza verticalmente tudo e reduz ligeiramente a altura */
+:global(.navbar) {
+  min-height: 70px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Mantém o nome e imagem do usuário alinhados */
+:global(#user-dropdown > span) {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem;
+}
+
+/* Ícones e texto com espaçamento suave */
+:global(.navbar-nav .nav-link),
+:global(.navbar-nav .dropdown-toggle) {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.3rem;
+  line-height: 1.2 !important;
+}
+
+/* Garante que a navbar use toda a largura disponível */
+:global(.navbar) {
+  width: 100% !important;
+  flex-wrap: nowrap !important;
+  justify-content: space-between !important;
+  padding-inline: 1rem !important;
+}
+
+/* Deixa o container realmente full width */
+:global(.navbar .container-fluid) {
+  max-width: 100% !important;
+  padding-left: 0.8rem !important;
+  padding-right: 0.8rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: nowrap !important;
+}
+
+/* Logo (STOCKLY) encostado à esquerda */
+:global(.navbar-brand) {
+  margin-left: 0 !important;
+  margin-right: 1rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+}
+
+/* Diminui ligeiramente o espaçamento entre os itens */
+.nav_link_spacing :global(.nav-link),
+.nav_link_spacing :global(.dropdown) {
+  margin-inline-end: 0.6rem !important;
+}
+
+/* Ícones e textos centralizados e proporcionais */
+:global(.navbar-nav .nav-link),
+:global(.navbar-nav .dropdown-toggle) {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.25rem !important;
+  font-size: 1.9rem !important;
+  white-space: nowrap !important; /* Evita quebra de linha */
+}
+
+/* Ajusta dropdown do usuário */
+:global(#user-dropdown span) {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem;
+  white-space: nowrap !important;
 }
