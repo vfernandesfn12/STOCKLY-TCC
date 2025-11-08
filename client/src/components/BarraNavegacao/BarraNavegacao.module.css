@@ -7,9 +7,9 @@
 :global(.accordion-body),
 :global(.accordion-button) {
   background-color: #212529; /* Fundo escuro (tom de cinza quase preto) */
-  color: #fff;               /* Texto branco para contraste */
-  border: none;              /* Remove bordas padrão do Bootstrap */
-  box-shadow: none;          /* Remove sombreamento padrão */
+  color: #fff; /* Texto branco para contraste */
+  border: none; /* Remove bordas padrão do Bootstrap */
+  box-shadow: none; /* Remove sombreamento padrão */
 }
 
 /* 
@@ -39,12 +39,12 @@
 */
 :global(.navbar) {
   display: flex;
-  align-items: center;         /* Centraliza os itens verticalmente */
+  align-items: center; /* Centraliza os itens verticalmente */
   justify-content: space-between; /* Espaça o conteúdo nas extremidades */
-  flex-wrap: nowrap;           /* Impede quebra de linha dos itens */
+  flex-wrap: nowrap; /* Impede quebra de linha dos itens */
   width: 100%;
-  min-height: 70px;            /* Altura mínima da barra */
-  padding: 0.3rem 1rem;        /* Espaçamento interno */
+  min-height: 70px; /* Altura mínima da barra */
+  padding: 0.3rem 1rem; /* Espaçamento interno */
 }
 
 /* 
@@ -66,11 +66,11 @@
 :global(.navbar-brand) {
   display: flex;
   align-items: center;
-  gap: 0.5rem;          /* Espaço entre logo e texto */
-  font-size: 1.9rem;    /* Tamanho do texto da marca */
-  font-weight: 600;     /* Negrito moderado */
+  gap: 0.5rem; /* Espaço entre logo e texto */
+  font-size: 1.9rem; /* Tamanho do texto da marca */
+  font-weight: 600; /* Negrito moderado */
   margin-right: 1rem;
-  white-space: nowrap;  /* Impede quebra de linha no nome */
+  white-space: nowrap; /* Impede quebra de linha no nome */
 }
 
 /* Define o tamanho da imagem da logo */
@@ -96,7 +96,7 @@
 :global(.navbar-nav .dropdown-toggle) {
   display: flex;
   align-items: center;
-  gap: 0.3rem;         /* Espaço entre ícone e texto */
+  gap: 0.3rem; /* Espaço entre ícone e texto */
   font-size: 1.1rem;
   line-height: 1.2;
   white-space: nowrap; /* Evita quebra de linha em links longos */
@@ -116,7 +116,7 @@
   Ajusta a seta do dropdown (setinha que indica menu).
 */
 :global(.dropdown-toggle::after) {
-  margin-left: 0.3rem;     /* Distância entre texto e seta */
+  margin-left: 0.3rem; /* Distância entre texto e seta */
   transform: translateY(1px); /* Ajuste fino vertical */
 }
 
@@ -147,14 +147,14 @@
 */
 @media (max-width: 991px) {
   :global(.navbar) {
-    flex-wrap: wrap;          /* Permite quebra de linha */
-    justify-content: center;  /* Centraliza os itens */
+    flex-wrap: wrap; /* Permite quebra de linha */
+    justify-content: center; /* Centraliza os itens */
     text-align: center;
   }
 
   :global(.navbar-brand) {
     margin: 0 auto 0.5rem; /* Centraliza a marca */
-    font-size: 1.3rem;     /* Reduz tamanho do texto */
+    font-size: 1.3rem; /* Reduz tamanho do texto */
   }
 
   :global(.navbar-brand img) {

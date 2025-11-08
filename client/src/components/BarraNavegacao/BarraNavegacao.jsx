@@ -36,9 +36,12 @@ const BarraNavegacao = () => {
     <Navbar bg="light" expand="lg" className={`${styles.navbar} shadow-sm`}>
       {/* Container fluido (ocupa 100% da largura) */}
       <Container fluid className={styles.nav_link_spacing}>
-        
         {/* ==== LOGO + NOME ==== */}
-        <Navbar.Brand as={NavLink} to="/home" className="d-flex align-items-center">
+        <Navbar.Brand
+          as={NavLink}
+          to="/home"
+          className="d-flex align-items-center"
+        >
           {/* Logo da empresa */}
           <Image
             src={logo}
@@ -73,7 +76,12 @@ const BarraNavegacao = () => {
 
             {/* ===== MENU PRODUTOS ===== */}
             <NavDropdown
-              title={<><FaBoxesStacked className="me-1" />Produtos</>}
+              title={
+                <>
+                  <FaBoxesStacked className="me-1" />
+                  Produtos
+                </>
+              }
               id="produtos-dropdown"
             >
               <NavDropdown.Item as={NavLink} to="/produtos">
@@ -86,7 +94,12 @@ const BarraNavegacao = () => {
 
             {/* ===== MENU CLIENTES ===== */}
             <NavDropdown
-              title={<><FaHandHoldingUsd className="me-1" />Clientes</>}
+              title={
+                <>
+                  <FaHandHoldingUsd className="me-1" />
+                  Clientes
+                </>
+              }
               id="clientes-dropdown"
             >
               <NavDropdown.Item as={NavLink} to="/clientes">
@@ -99,7 +112,12 @@ const BarraNavegacao = () => {
 
             {/* ===== MENU FUNCIONÁRIOS ===== */}
             <NavDropdown
-              title={<><HiUserGroup className="me-1" />Funcionários</>}
+              title={
+                <>
+                  <HiUserGroup className="me-1" />
+                  Funcionários
+                </>
+              }
               id="funcionarios-dropdown"
             >
               <NavDropdown.Item as={NavLink} to="/funcionarios">
@@ -112,7 +130,12 @@ const BarraNavegacao = () => {
 
             {/* ===== MENU PEDIDOS ===== */}
             <NavDropdown
-              title={<><HiMiniClipboardDocumentList className="me-1" />Pedidos</>}
+              title={
+                <>
+                  <HiMiniClipboardDocumentList className="me-1" />
+                  Pedidos
+                </>
+              }
               id="pedidos-dropdown"
             >
               <NavDropdown.Item as={NavLink} to="/pedidos">
@@ -145,7 +168,10 @@ const BarraNavegacao = () => {
               id="dropdown-usuario"
             >
               {/* Opção de editar o próprio perfil */}
-              <NavDropdown.Item as={NavLink} to={`/funcionarios/editar/${idAtual}`}>
+              <NavDropdown.Item
+                as={NavLink}
+                to={`/funcionarios/editar/${idAtual}`}
+              >
                 Editar Perfil
               </NavDropdown.Item>
 
