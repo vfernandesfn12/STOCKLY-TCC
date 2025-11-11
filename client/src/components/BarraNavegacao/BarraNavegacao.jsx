@@ -20,6 +20,8 @@ import { RiHome9Fill } from "react-icons/ri"; // Ícone de casa (home)
 import styles from "./BarraNavegacao.module.css"; // estilos personalizados da navbar
 import logo from "../../../src/assets/logo.png"; // logo da aplicação
 
+import DarkMode from "../DarkMode/DarkMode.jsx"; // Importando DarkMode
+
 // ===== COMPONENTE PRINCIPAL =====
 const BarraNavegacao = () => {
   // Pega dados do contexto (nome do usuário e função de logout)
@@ -148,7 +150,12 @@ const BarraNavegacao = () => {
           </Nav>
 
           {/* ==== PERFIL DO USUÁRIO ==== */}
-          <Nav>
+          <Nav className="d-flex align-items-center">
+            {/* Botão de modo escuro (DarkMode) */}
+            <div className="me-3">
+              <DarkMode />
+            </div>
+
             <NavDropdown
               align="end" // abre o menu alinhado à direita
               title={
