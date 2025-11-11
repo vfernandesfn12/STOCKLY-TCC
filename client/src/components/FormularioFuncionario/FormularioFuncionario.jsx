@@ -54,13 +54,25 @@ const FormularioFuncionario = (props) => {
   };
 
   return (
-    <div className="text-center">
+    <div
+      className="d-flex justify-content-right align-items-start"
+      style={{
+        minHeight: "100vh",
+        paddingTop: "5rem",
+      }}
+    >
       <Form
-        style={{ padding: "1.5rem", color: "#ecf0f1" }}
-        className="mt-3 w-full"
+        style={{
+          padding: "2.5rem",
+          borderRadius: "20px",
+          maxWidth: "1100px",
+          width: "90%",
+        }}
         onSubmit={handleSubmit(onSubmit, onError)}
       >
-        <h1 className="mb-5 text-dark">Cadastro de Funcionário</h1>
+        <h1 className="text-center mb-5 text-dark fw-bold">
+          Cadastro de Funcionário
+        </h1>
         <Row>
           <Col md={12} lg={6}>
             {/* Nome do Funcionário */}
@@ -100,7 +112,11 @@ const FormularioFuncionario = (props) => {
             </FloatingLabel>
 
             {/* Telefone */}
-            <FloatingLabel controlId="FI-TELEFONE" label="Telefone" className="mb-5">
+            <FloatingLabel
+              controlId="FI-TELEFONE"
+              label="Telefone"
+              className="mb-5"
+            >
               <Form.Control
                 type="text"
                 {...register("telefone", {
@@ -111,7 +127,9 @@ const FormularioFuncionario = (props) => {
                   },
                 })}
               />
-              {errors.telefone && <p className="error">{errors.telefone.message}</p>}
+              {errors.telefone && (
+                <p className="error">{errors.telefone.message}</p>
+              )}
             </FloatingLabel>
 
             {/* Email */}
@@ -130,10 +148,15 @@ const FormularioFuncionario = (props) => {
             </FloatingLabel>
 
             {/* Departamento */}
-            <FloatingLabel controlId="FI-DEPARTAMENTO" label="Departamento" className="mb-5">
+            <FloatingLabel
+              controlId="FI-DEPARTAMENTO"
+              label="Departamento"
+              className="mb-5"
+            >
               <Form.Select
                 {...register("departamento", {
-                  validate: (value) => value !== "0" || "Escolha um departamento",
+                  validate: (value) =>
+                    value !== "0" || "Escolha um departamento",
                 })}
               >
                 <option value="0">Escolha um departamento</option>
@@ -151,7 +174,7 @@ const FormularioFuncionario = (props) => {
 
           {/* CARGO */}
           <Col md={12} lg={6}>
-          <FloatingLabel controlId="FI-CARGO" label="Cargo" className="mb-5">
+            <FloatingLabel controlId="FI-CARGO" label="Cargo" className="mb-5">
               <Form.Control
                 type="text"
                 {...register("cargo", {
@@ -170,9 +193,14 @@ const FormularioFuncionario = (props) => {
                 <p className="error"> {errors.cargo.message} </p>
               )}
             </FloatingLabel>
+
             {/* Foto do Funcionário */}
             <Form.Group controlId="FI-FOTO" className="mb-5">
-              <FloatingLabel controlId="FI-FOTO-LINK" label="Link da foto" className="mb-5">
+              <FloatingLabel
+                controlId="FI-FOTO-LINK"
+                label="Link da foto"
+                className="mb-5"
+              >
                 <Form.Control
                   type="url"
                   {...register("fotoUrl", {
@@ -183,8 +211,11 @@ const FormularioFuncionario = (props) => {
                     },
                   })}
                 />
-                {errors.fotoUrl && <p className="error">{errors.fotoUrl.message}</p>}
+                {errors.fotoUrl && (
+                  <p className="error">{errors.fotoUrl.message}</p>
+                )}
               </FloatingLabel>
+
               <Image
                 width={200}
                 height={200}
@@ -197,7 +228,12 @@ const FormularioFuncionario = (props) => {
 
         {/* Botão */}
         <Button
-          style={{ backgroundColor: "#344250" }}
+          style={{
+            backgroundColor: "#344250",
+            display: "block",
+            margin: "2rem auto 0 auto",
+            padding: "10px 40px"
+          }}
           variant="primary"
           size="lg"
           type="submit"

@@ -48,13 +48,23 @@ const FormularioProduto = (props) => {
   };
 
   return (
-    <div className="text-center">
+    <div
+      className="d-flex justify-content-right align-items-start"
+      style={{
+        minHeight: "100vh",
+        paddingTop: "5rem",
+      }}
+    >
       <Form
-        className="mt-3 w-full"
+       style={{
+          padding: "2.5rem",
+          borderRadius: "20px",
+          maxWidth: "1100px",
+          width: "90%",
+        }}
         onSubmit={handleSubmit(onSubmit, onError)}
-        style={{ maxWidth: "720px", marginLeft: "280px" }}
       >
-        <Form.Label as="h1" className="text-center mb-4 text-dark">
+        <Form.Label as="h1" className="text-center mb-5 text-dark fw-bold">
           Cadastrar Produto
         </Form.Label>
         <Row>

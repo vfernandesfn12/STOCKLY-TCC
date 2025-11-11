@@ -35,7 +35,7 @@ const BarraNavegacao = () => {
   return (
     // Navbar principal do React-Bootstrap
     // bg="light" → fundo claro | expand="lg" → colapsa em telas pequenas
-    <Navbar bg="light" expand="lg" className={`${styles.navbar} shadow-sm`}>
+    <Navbar expand="lg" className={`${styles.navbar} shadow-sm`}>
       {/* Container fluido (ocupa 100% da largura) */}
       <Container fluid className={styles.nav_link_spacing}>
         {/* ==== LOGO + NOME ==== */}
