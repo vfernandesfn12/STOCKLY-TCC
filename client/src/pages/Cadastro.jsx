@@ -1,158 +1,170 @@
-import React, { useState } from "react";
-import Container from "react-bootstrap/Container";
+//Importações do Bootstrap
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
-import { useNavigate } from "react-router-dom";
-import styles from "./Login.module.css"; // Utilizando o modules da página de Login
+
+// CSS e logo
+import styles from "./Login.module.css";
 import logo from "../assets/logo.png";
 
-export default function Cadastro() {
+// Dark Mode
+import DarkMode from "../components/DarkMode/DarkMode.jsx";
+
+// react-hook-form
+import { useForm } from "react-hook-form";
+
+// Hooks e estado
+import { useState } from "react";
+
+// Navigate
+import { useNavigate } from "react-router-dom";
+
+// Hook de criar usuário (ajuste para o nome real do seu hook)
+import { useInserirUsuario } from "../hooks/useUsuarios";
+
+const Cadastro = () => {
+  // Animação da parte azul
+  const [animacao, setAnimacao] = useState(false);
+
+  // Alert de erro
+  const [alerta, setAlerta] = useState("d-none");
+
+  // Hook de cadastro
+  const { cadastrarUsuario } = useInserirUsuario();
+
+  // Navigate
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    nome: "",
-    email: "",
-    senha: "",
-    confirmarSenha: "",
-  });
+  // React Hook Form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const [erro, setErro] = useState("");
+  // Envio correto
+  const onSubmit = (data) => {
+    const resposta = cadastrarUsuario(data);
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (form.senha !== form.confirmarSenha) {
-      setErro("As senhas não coincidem!");
-      return;
+    if (resposta === "Usuário cadastrado com sucesso") {
+      alert(resposta);
+      navigate("/login");
+    } else {
+      setAlerta("my-3 w-75 mx-auto");
     }
-
-    console.log("Dados cadastrados:", form);
-    alert("Cadastro realizado com sucesso!");
-    navigate("/login");
   };
+
+  // Envio com erro
+  const onError = (err) => console.log("Erros:", err);
 
   return (
-    <div className={styles.pageLogin}> {/* Cor igual ao de Login. */}
-      <Container className="justify-content-center align-content-center min-vh-100">
-        <Row>
-          <Col>
-            <img
-              src={logo}
-              alt=""
-              width={"600px"}
-              height={"600px"}
-              // className="img-fluid mb-3"
-            />
-          </Col>
+    <div className={styles.pageWrapper}>
 
-          <Col className="d-flex flex-column">
-            <div>
-              {erro && (
-                <Alert variant="danger" onClose={() => setErro("")} dismissible>
-                  {erro}
-                </Alert>
+      {/* Dark Mode */}
+      <div className={styles.darkmodeWrapper}>
+        <DarkMode />
+      </div>
+
+      <div className={styles.loginCard}>
+
+        {/* LADO AZUL */}
+        <div className={`${styles.leftBox} ${animacao ? styles.animateOutLeft : styles.animateInLeft}`}>
+          <img src={logo} alt="" className={styles.logo} />
+          <p>Já possui conta?</p>
+
+          <button
+            className={styles.registerBtn}
+            onClick={() => {
+              setAnimacao(true);
+              setTimeout(() => navigate("/login"), 500);
+            }}
+          >
+            Fazer Login
+          </button>
+        </div>
+
+        {/* LADO DO FORM */}
+        <div className={styles.rightBox}>
+          <h2 className={styles.title}>Cadastro</h2>
+
+          <Form onSubmit={handleSubmit(onSubmit, onError)}>
+
+            {/* Nome */}
+            <FloatingLabel controlId="inputNome" label="Nome" className="mb-4">
+              <Form.Control
+                type="text"
+                {...register("nome", { required: "O nome é obrigatório" })}
+              />
+              {errors.nome && (
+                <p className={styles.error}>{errors.nome.message}</p>
               )}
+            </FloatingLabel>
 
-              <Form className={styles.formlogin} onSubmit={handleSubmit} style={{ width: "75%", margin: "auto", textAlign: "center" }}>
+            {/* Email */}
+            <FloatingLabel controlId="inputEmail" label="Email" className="mb-4">
+              <Form.Control
+                type="email"
+                {...register("email", {
+                  required: "O email é obrigatório",
+                  pattern: {
+                    value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i,
+                    message: "Email inválido",
+                  },
+                })}
+              />
+              {errors.email && (
+                <p className={styles.error}>{errors.email.message}</p>
+              )}
+            </FloatingLabel>
 
-                <h2 
-                  className="text-center text-light mb-4"
-                  className = {styles.tituloLogin}
-                >
-                  Cadastro
-                </h2>
+            {/* Senha */}
+            <FloatingLabel controlId="inputSenha" label="Senha" className="mb-4">
+              <Form.Control
+                type="password"
+                {...register("senha", {
+                  required: "A senha é obrigatória",
+                  minLength: {
+                    value: 6,
+                    message: "A senha deve ter pelo menos 6 caracteres",
+                  },
+                })}
+              />
+              {errors.senha && (
+                <p className={styles.error}>{errors.senha.message}</p>
+              )}
+            </FloatingLabel>
 
-                <FloatingLabel
-                  controlId="inputNome"
-                  label="Nome"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="text"
-                    name="nome"
-                    placeholder="Nome"
-                    value={form.nome}
-                    onChange={handleChange}
-                    required
-                  />
-                </FloatingLabel>
+            {/* Confirmar senha */}
+            <FloatingLabel
+              controlId="inputConfirmar"
+              label="Confirmar senha"
+              className="mb-4"
+            >
+              <Form.Control
+                type="password"
+                {...register("confirmar", {
+                  required: "Confirme sua senha",
+                })}
+              />
+              {errors.confirmar && (
+                <p className={styles.error}>{errors.confirmar.message}</p>
+              )}
+            </FloatingLabel>
 
-                <FloatingLabel
-                  controlId="inputEmail"
-                  label="Email"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </FloatingLabel>
+            <Button type="submit" className={styles.btnLogin}>
+              Criar Conta
+            </Button>
 
-                <FloatingLabel
-                  controlId="inputSenha"
-                  label="Senha"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="password"
-                    name="senha"
-                    placeholder="Senha"
-                    value={form.senha}
-                    onChange={handleChange}
-                    required
-                  />
-                </FloatingLabel>
+            <Alert variant="danger" className={alerta}>
+              Erro ao cadastrar usuário
+            </Alert>
 
-                <FloatingLabel
-                  controlId="inputConfirmarSenha"
-                  label="Confirmar Senha"
-                  className="mb-4"
-                >
-                  <Form.Control
-                    type="password"
-                    name="confirmarSenha"
-                    placeholder="Confirmar Senha"
-                    value={form.confirmarSenha}
-                    onChange={handleChange}
-                    required
-                  />
-                </FloatingLabel>
-
-                <div>
-                  <Button variant="primary" type="submit" size="lg" style={{backgroundColor: "#344250"}}>
-                    Cadastrar
-                  </Button>
-                </div>
-
-                <p className="text-center text-light mt-3">
-                  Já possui conta?{" "}
-                  <span
-                    className={styles.link}
-                    onClick={() => navigate("/login")}
-                  >
-                    Faça login
-                  </span>
-                </p>
-              </Form>
-            </div>
-          </Col>
-        </Row>
-      </Container>
+          </Form>
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default Cadastro;

@@ -4,18 +4,40 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 
 // Importando a função useform do pacote hook-form
-import { useForm, Watch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 // Importando o hook de produtos
-import { useInserirProduto } from "../../hooks/useProdutos";
+import {
+  useListaCategorias,
+  useListaMedidas,
+  useBuscarProdutoPorId,
+  useAtualizarProduto,
+} from "../../hooks/UseProdutos";
+
+// Navigate - transitar entre páginas, params - pegar o id fornecido na url
+import { useNavigate, useParams } from "react-router-dom"
+
+// UseState- monitar variáveis e useffect pra realizar algo quando o componente carregar
+import { useState, useEffect, use } from "react";
 
 const FormularioProduto = (props) => {
-  //IMPORTAÇÂO DAS FUNÇÕES DO HOOK USEPRODUTOS
-  //usando a função de inserir produto
+  // IMPORTAÇÃO DAS FUNÇÕES VINDAS DO HOOK USEPRODUTOS
+  // Usando a função de inserir produto vinda do hook
   const { inserirProduto } = useInserirProduto();
 
+  //usando a função de buscar o produto e atualizar
+  const { buscarProdutoPorId } = useBuscarProdutoPorId();
+  const { atualizarProduto } = useAtualizarProduto();
+
+  // Guardando o id do produto vindo da url
+  const { id } = useParams();
+
+  // Navigate para trocar de paginas
+  const navigate = useNavigate()
+  
   // register = cria um objeto com os valores retirados dos inputs
   // handleSumbit = envia os dados formulário, caso dê erro ou sucesso
   // formState { errors } = objeto que guarda uma lista de erros que aconteceram na tentativa do envio
@@ -24,55 +46,110 @@ const FormularioProduto = (props) => {
     handleSubmit,
     formState: { errors },
     watch,
-    reset,
+    reset
   } = useForm();
 
-  // FUNÇÕES QUE LIDAM COM O SUCESSO OU ERRO DO FORMUÁRIO
-  // Função para caso dê certo na validação do formulário
-  // datat é o objeto com os dados do formulário
+  // Lista de categorias
+  const cates = useListaCategorias();
 
-  const onSubmit = async (data) => {
+  // Lista de medidas
+  const medis = useListaMedidas();
+
+  // Variavel de produto sem imagem
+  const linkImagem =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA13yHQQqIo0itjIvx5np_T1BJcqtKSwErqQ&s";
+
+  //Variavel pra armazenar o link da imagem, vindo do input
+  const imagemAtual = watch("imagemUrl");
+
+  // CASO O FORMULÁRIO SEJA DE EDIÇÃO, BUSCAR O PRODUTO ID
+  if(props.page === "editar"){
+    // Variavel que controla se o produto já foi carregado
+    const [carregado, setCarregado] = useState()
+
+    // Effect pra buscar o produto assim que o componente for montado
+    useEffect(()=>{
+        async function fetchProduto() {
+          try{
+            // Guarda as informações do produto na variável  
+            const produto = await buscarProdutoPorId(id)
+            console.log(produto)
+
+            // Se houver produto, reseta o formulário com os dados do produto
+            if(produto && !carregado){
+              reset({
+                  nome: produto.nome,
+                  descricao: produto.descricao,
+                  categoria: produto.categoria,
+                  imagemUrl: produto.imagemUrl,
+                  precoVenda: produto.precoVenda,
+                  precoCusto: produto.precoCusto,
+                  marca: produto.marca,
+                  tamanho: produto.tamanho,
+                  medida: produto.medida,
+                  sku: produto.sku,
+                  quantidade: produto.quantidade,
+                  fornecedor: produto.fornecedor,
+              })
+              //Evita chamadas múltiplas do reset
+              setCarregado(true)
+            }
+          }
+          catch(erro){
+            console.log(("Erro ao buscar o produto:", erro));
+            alert("Produto não encontrado")
+            navigate("/home")
+          }
+        }
+        fetchProduto()
+    },[])
+  }
+
+  // FUNÇÕES QUE LIDAM COM O SUCESSO OU ERRO DO FORMULÁRIO
+  // Função pra caso dê certo na validação do formulário
+  // data é o objeto com as informações dos campos do formulário
+  const onSubmit = (data) => {
     console.log("Dados:", data);
     if (props.page === "cadastro") {
       //Envia o objeto data para o hook inserir produto
       inserirProduto(data);
-      alert("Produto cadastrado com sucesso!");
+      alert("Produto cadastrado com sucesso");
     } else {
-      // Depois nòis ve
+      // Depois nóis vê
     }
   };
-
   // Caso tenha algum erro no formulário, mostra as mensagens de erro nos campos
   const onError = (errors) => {
     console.log("Erros:", errors);
   };
-
   return (
-    <div
-      className="d-flex justify-content-right align-items-start"
-      style={{
-        minHeight: "100vh",
-        paddingTop: "5rem",
-      }}
-    >
-      <Form
-       style={{
-          padding: "2.5rem",
-          borderRadius: "20px",
-          maxWidth: "1100px",
-          width: "90%",
-        }}
-        onSubmit={handleSubmit(onSubmit, onError)}
-      >
-        <Form.Label as="h1" className="text-center mb-5 text-dark fw-bold">
-          Cadastrar Produto
-        </Form.Label>
+    <div className="text-center">
+      <Form className="mt-3 w-full" onSubmit={handleSubmit(onSubmit, onError)}>
         <Row>
-          <Col md={12} lg={12}>
+          <Col md={12} lg={6}>
+            {/* Caixinha de SKU */}
+            <FloatingLabel controlId="FI-SKU" label="SKU" className="mb-5">
+              <Form.Control
+                type="text"
+                {...register("sku", {
+                  required: "O SKU é obrigatório",
+                  minLength: {
+                    value: 2,
+                    message: "O SKU deve ter pelo menos dois caracteres",
+                  },
+                  maxLength: {
+                    value: 10,
+                    message: "O SKU deve ter no máximo 10 caracteres",
+                  },
+                })}
+              ></Form.Control>
+              {errors.sku && <p className="error"> {errors.sku.message} </p>}
+            </FloatingLabel>
+            {/* Fim de caixinha de SKU */}
+
             {/* Caixinha de Nome */}
             <FloatingLabel controlId="FI-NOME" label="Nome" className="mb-5">
               <Form.Control
-                style={{ backgroundColor: "#FFF", borderColor: "#5F6D7C" }}
                 type="text"
                 {...register("nome", {
                   required: "O nome é obrigatório",
@@ -90,33 +167,6 @@ const FormularioProduto = (props) => {
             </FloatingLabel>
             {/* Fim de caixinha de Nome */}
 
-            {/* Caixinha de SKU */}
-            <FloatingLabel
-              controlId="FI-CODIGO"
-              label="Código"
-              className="mb-5"
-            >
-              <Form.Control
-                style={{ backgroundColor: "#FFF", borderColor: "#5F6D7C" }}
-                type="text"
-                {...register("codigo", {
-                  required: "O código é obrigatório",
-                  minLength: {
-                    value: 2,
-                    message: "O código deve ter pelo menos dois caracteres",
-                  },
-                  maxLength: {
-                    value: 10,
-                    message: "O código deve ter no máximo 10 caracteres",
-                  },
-                })}
-              ></Form.Control>
-              {errors.codigo && (
-                <p className="error"> {errors.codigo.message} </p>
-              )}
-            </FloatingLabel>
-            {/* Fim de caixinha de SKU */}
-
             {/* Caixinha de descrição */}
             <FloatingLabel
               controlId="FI-DESCRICAO"
@@ -124,12 +174,6 @@ const FormularioProduto = (props) => {
               className="mb-5"
             >
               <Form.Control
-                style={{
-                  height: "120px",
-                  backgroundColor: "#FFF",
-                  borderColor: "#5F6D7C",
-                }} // Altura maior
-                as="textarea" // isso transforma em área de texto
                 type="text"
                 {...register("descricao", {
                   required: "A descrição é obrigatória",
@@ -148,109 +192,248 @@ const FormularioProduto = (props) => {
               )}
             </FloatingLabel>
             {/* Fim de caixinha de descrição */}
-          </Col>
-        </Row>
 
-        {/* Data Entrada e Tipo do produto */}
-        <Row className="mb-3">
-          <Col md={6}>
-            <FloatingLabel controlId="FI-DATAENTRADA" label="Data Entrada">
-              <Form.Control
-                type="date"
-                style={{ backgroundColor: "#FFF", borderColor: "#5F6D7C" }}
-                {...register("dataEntrada", {
-                  required: "A data de entrada é obrigatória",
+            {/* Caixinha de categoria */}
+            <FloatingLabel
+              controlId="FI-CATEGORIAS"
+              label="Categoria"
+              className="mb-5"
+            >
+              <Form.Select
+                {...register("categoria", {
+                  validate: (value) => value !== "0" || "Escolha uma categoria",
                 })}
-              />
-              {errors.dataEntrega && (
-                <p className="error"> {errors.dataEntrega.message} </p>
+              >
+                <option value="0"> Escolha uma categoria </option>
+                {cates.map((cat) => (
+                  <option key={cat.id} value={cat.nome}>
+                    {" "}
+                    {cat.nome}{" "}
+                  </option>
+                ))}
+              </Form.Select>
+              {errors.categoria && (
+                <p className="error"> {errors.categoria.message} </p>
               )}
             </FloatingLabel>
-          </Col>
-          <Col md={6}>
-            <FloatingLabel controlId="FI-TIPOPRODUTO" label="Tipo do Produto">
+            {/* Fim de caixinha de categoria */}
+
+            {/* Caixinha de marca */}
+            <FloatingLabel controlId="FI-MARCA" label="Marca" className="mb-5">
               <Form.Control
                 type="text"
-                style={{ backgroundColor: "#FFF", borderColor: "#5F6D7C" }}
-                {...register("tipoProduto", {
-                  required: "O tipo do produto é obrigatória",
+                {...register("marca", {
+                  required: "A marca é obrigatória",
                   minLength: {
                     value: 2,
-                    message:
-                      "O tipo do produto deve ter pelo menos dois caracteres",
+                    message: "A marca deve ter pelo menos dois caracteres",
                   },
                   maxLength: {
-                    value: 50,
-                    message:
-                      "O tipo do produto deve ter no máximo 50 caracteres",
+                    value: 30,
+                    message: "A marca deve ter no máximo 30 caracteres",
                   },
                 })}
-              />
-              {errors.tipoProduto && (
-                <p className="error"> {errors.tipoProduto.message} </p>
+              ></Form.Control>
+              {errors.marca && (
+                <p className="error"> {errors.marca.message} </p>
               )}
             </FloatingLabel>
-          </Col>
-        </Row>
+            {/* Fim de caixinha de marca */}
 
-        {/* Data Validade e Valor */}
-        <Row className="mb-3">
-          <Col md={6}>
-            <FloatingLabel controlId="FI-DATAVALIDADE" label="Data Validade">
+            {/* Caixinha de fornecedor */}
+            <FloatingLabel
+              controlId="FI-FORNECEDOR"
+              label="Fornecedor"
+              className="mb-5"
+            >
               <Form.Control
-                type="date"
-                style={{ backgroundColor: "#FFF", borderColor: "#5F6D7C" }}
-                {...register("dataValidade", {
-                  required: "A data de validade é obrigatório",
-                  min: {
-                    value: 0.01,
-                    message: "A data de validade deve ser maior que 0",
+                type="text"
+                {...register("fornecedor", {
+                  required: "O Fornecedor é obrigatório",
+                  minLength: {
+                    value: 2,
+                    message: "O Fornecedor deve ter pelo menos dois caracteres",
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: "O Fornecedor deve ter no máximo 30 caracteres",
                   },
                 })}
-              />
-              {errors.dataValidade && (
-                <p className="error"> {errors.dataValidade.message} </p>
+              ></Form.Control>
+              {errors.fornecedor && (
+                <p className="error"> {errors.fornecedor.message} </p>
               )}
             </FloatingLabel>
+            {/* Fim de caixinha de fornecedor */}
           </Col>
-          <Col md={6}>
-            <FloatingLabel controlId="FI-VALOR" label="Valor (R$)">
+          <Col md={12} lg={6}>
+            {/* Caixinha de quantidade */}
+            <FloatingLabel
+              controlId="FI-QUANTIDADE"
+              label="Quantidade"
+              className="mb-5"
+            >
               <Form.Control
                 type="number"
-                step="0.01"
-                style={{ backgroundColor: "#FFF", borderColor: "#5F6D7C" }}
-                {...register("valor", {
-                  required: "O valor é obrigatório",
+                {...register("quantidade", {
+                  required: "A quantidade é obrigatória",
                   min: {
-                    value: 0.01,
-                    message: "O valor deve ser maior que 0",
+                    value: 1,
+                    message: "A quantidade deve ser maior que 0",
                   },
                 })}
-              />
-              {errors.valor && (
-                <p className="error"> {errors.valor.message} </p>
+              ></Form.Control>
+              {errors.quantidade && (
+                <p className="error"> {errors.quantidade.message} </p>
               )}
             </FloatingLabel>
+            {/* Fim de caixinha de quantidade */}
+
+            <Row>
+              {/* Primeira linha */}
+              <Col>
+                {" "}
+                {/* Primeira coluna */}
+                {/* Caixinha de tamanho */}
+                <FloatingLabel
+                  controlId="FI-TAMANHO"
+                  label="Tamanho"
+                  className="mb-5"
+                >
+                  <Form.Control
+                    type="number"
+                    {...register("tamanho", {
+                      required: "O tamanho é obrigatório",
+                      min: {
+                        value: 1,
+                        message: "O tamanho deve ser maior que 0",
+                      },
+                    })}
+                  ></Form.Control>
+                  {errors.tamanho && (
+                    <p className="error"> {errors.tamanho.message} </p>
+                  )}
+                </FloatingLabel>
+                {/* Fim de caixinha de tamanho */}
+              </Col>
+              <Col>
+                {/* Segunda coluna */}
+                {/* Caixinha de medidas */}
+                <FloatingLabel
+                  controlId="FI-MEDIDAS"
+                  label="Medida"
+                  className="mb-5"
+                >
+                  <Form.Select
+                    {...register("medida", {
+                      validate: (value) =>
+                        value !== "0" || "Escolha uma medida",
+                    })}
+                  >
+                    <option value="0"> Escolha uma medida </option>
+                    {medis.map((med) => (
+                      <option key={med.id} value={med.nome}>
+                        {" "}
+                        {med.nome}{" "}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {errors.medida && (
+                    <p className="error"> {errors.medida.message} </p>
+                  )}
+                </FloatingLabel>
+                {/* Fim de caixinha de medidas */}
+              </Col>
+            </Row>
+            <Row>
+              {" "}
+              {/* Segunda linha */}
+              <Col>
+                {" "}
+                {/* Primeira coluna */}
+                {/* Caixinha de preco de custo */}
+                <FloatingLabel
+                  controlId="FI-PC"
+                  label="Preço de custo"
+                  className="mb-5"
+                >
+                  <Form.Control
+                    type="number"
+                    {...register("precoCusto", {
+                      required: "O preço de custo é obrigatório",
+                      min: {
+                        value: 0.01,
+                        message: "O preço de custo deve ser maior que 0",
+                      },
+                    })}
+                  ></Form.Control>
+                  {errors.precoCusto && (
+                    <p className="error"> {errors.precoCusto.message} </p>
+                  )}
+                </FloatingLabel>
+                {/* Fim de caixinha de preco de custo */}
+              </Col>
+              <Col>
+                {" "}
+                {/* Segunda coluna */}
+                {/* Caixinha de preco de venda */}
+                <FloatingLabel
+                  controlId="FI-PV"
+                  label="Preço de venda"
+                  className="mb-5"
+                >
+                  <Form.Control
+                    type="number"
+                    {...register("precoVenda", {
+                      required: "O preço de venda é obrigatório",
+                      min: {
+                        value: 0.01,
+                        message: "O preço de venda deve ser maior que 0",
+                      },
+                    })}
+                  ></Form.Control>
+                  {errors.precoVenda && (
+                    <p className="error"> {errors.precoVenda.message} </p>
+                  )}
+                </FloatingLabel>
+                {/* Fim de caixinha de preco de venda */}
+              </Col>
+            </Row>
+            {/* Caixinha de imagem */}
+            <Form.Group controlId="FI-IMAGEM" className="mb-5">
+              <FloatingLabel
+                controlId="FI-IMAGEM-LINK"
+                label="Link da imagem"
+                className="mb-5"
+              >
+                <Form.Control
+                  type="url"
+                  {...register("imagemUrl", {
+                    required: "O link é obrigatório",
+                    pattern: {
+                      value: /^(http|https):\/\/[^ "]+$/,
+                      message: "Insira um link válido",
+                    },
+                  })}
+                ></Form.Control>
+                {errors.imagemUrl && (
+                  <p className="error"> {errors.imagemUrl.message}</p>
+                )}
+              </FloatingLabel>
+              <Image
+                width={200}
+                height={200}
+                rounded
+                src={imagemAtual == "" ? linkImagem : imagemAtual}
+              />
+            </Form.Group>
+            {/* Fim de caixinha de imagem */}
           </Col>
         </Row>
-
         {/* Botão para envio do formulário */}
-        <div className="d-flex gap-2 justify-content-center">
-          <Button variant="primary" size="lg" type="submit">
-            {props.page === "editar" ? "Atualizar" : "Cadastrar"}
-          </Button>
-          <Button
-            type="button"
-            variant="danger"
-            className="mt-6 px-4"
-            onClick={() => {
-              // Função para limpar o formulário
-              reset(); // função do useForm para limpar
-            }}
-          >
-            Limpar
-          </Button>
-        </div>
+        <Button variant="primary" size="lg" type="submit">
+          {props.page === "editar" ? "Atualizar" : "Cadastrar"}
+        </Button>
       </Form>
     </div>
   );

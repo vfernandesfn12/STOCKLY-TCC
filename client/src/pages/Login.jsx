@@ -1,13 +1,13 @@
 //Importação dos componentes do bootstrap
-import Container from "react-bootstrap/Container";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import styles from "./Login.module.css";
 import logo from "../assets/logo.png";
+
+// Importando DarkMode
+import DarkMode from "../components/DarkMode/DarkMode.jsx";
 
 // importando o hook para verificar o login, vindo do useUsuários
 import { useVerificaLogin } from "../hooks/useUsuarios";
@@ -46,6 +46,9 @@ const Login = () => {
   //Variável classes do Alert
   const [alertaClasse, setAlertaClasse] = useState("d-none");
 
+  // Animação na parte de azul
+  const [animacao, setAnimacao] = useState(false)
+
   //Usando apenas a função verificaLogin, que importei do hook
   const { verificaLogin } = useVerificaLogin();
 
@@ -78,96 +81,80 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.pagelogin}>
-      <Container className="justify-content-center align-content-center min-vh-100">
-        {/* Linha para os campos de login e icone */}
-        <Row>
-          {/* Coluna com o icone da página */}
-          <Col>
-            {/* Icone de Login */}
-            {/* <BsBoxArrowInRight style={{ fontSize: "500px", color: "white" }} /> */}
-            <img src={logo} alt="" width={"600px"} height={"600px"} />
-          </Col>
-          {/* Coluna com os campos de login */}
-          <Col className="d-flex flex-column">
-            <Form className={styles.formlogin}
-              style={{ width: "75%", margin: "auto", textAlign: "center" }}
-              onSubmit={handleSubmit(onSubmit, onError)}
+    <div className={styles.pageWrapper}>
+      
+      {/* Dark Mode — canto superior direito */}
+      <div className={styles.darkmodeWrapper}>
+        <DarkMode />
+      </div>
+      <div className={styles.loginCard}>
+        {/* LADO AZUL */}
+        <div className={`${styles.leftBox} ${animacao ? styles.animateOutLeft : styles.animateInLeft}`}>
+          <img src={logo} alt="" className={styles.logo} />
+          <p>Não possui conta?</p>
+
+          <button
+            className={styles.registerBtn}
+            onClick={ () => {
+              setAnimacao(true);
+              setTimeout(() => navigate("/cadastro"), 500)
+            }}
+          >
+            Cadastre-se
+          </button>
+        </div>
+
+        {/* LADO DO FORM */}
+        <div className={styles.rightBox}>
+          <h2 className={styles.title}>Login</h2>
+
+          <Form onSubmit={handleSubmit(onSubmit, onError)}>
+            <FloatingLabel
+              controlId="inputEmail"
+              label="Email"
+              className="mb-4"
             >
-              {/* alteração feita para adicionar texto na caixa de login */}
+              <Form.Control
+                type="email"
+                {...register("email", {
+                  required: "O email é obrigatório",
+                  pattern: {
+                    value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i,
+                    message: "Email inválido",
+                  },
+                })}
+              />
+              {errors.email && (
+                <p className={styles.error}>{errors.email.message}</p>
+              )}
+            </FloatingLabel>
 
-              <h2 className={styles.tituloLogin}>Login</h2>
-              {/* Caixinha de email */}
-              <FloatingLabel
-                controlId="inputEmail"
-                label="Email"
-                className="mb-5"
-              >
-                <Form.Control
-                  type="email"
-                  {...register("email", {
-                    required: "O email é obrigatório",
-                    pattern: {
-                      value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
-                      message: "Email inválido",
-                    },
-                    validate: (value) =>
-                      value.includes("@") || "Email deve possuir um @",
-                  })}
-                />
-                {errors.email && (
-                  <p className="error">{errors.email.message}</p>
-                )}
-              </FloatingLabel>
-              {/* Fim de caixinha de email */}
+            <FloatingLabel
+              controlId="inputSenha"
+              label="Password"
+              className="mb-4"
+            >
+              <Form.Control
+                type="password"
+                {...register("senha", { required: "A senha é obrigatória" })}
+              />
+              {errors.senha && (
+                <p className={styles.error}>{errors.senha.message}</p>
+              )}
+            </FloatingLabel>
 
-              {/* Fim de senha */}
-              <FloatingLabel
-                controlId="inputSenha"
-                label="Senha"
-                className="mb-5"
-              >
-                <Form.Control
-                  type="password"
-                  {...register("senha", {
-                    required: "A senha é obrigatória",
-                  })}
-                />
-                {errors.senha && (
-                  <p className="error">{errors.senha.message}</p>
-                )}
-              </FloatingLabel>
-              {/* Fim da senha */}
+            <p className={styles.forgotPassword}>Forgot Password?</p>
 
-              {/* Botão para envio */}
-              <Button
-                style={{ backgroundColor: "#344250" }}
-                variant="primary"
-                type="submit"
-                className="mb-4"
-                size="lg"
-              >
-                Login
-              </Button>
+            <Button type="submit" className={styles.btnLogin}>
+              Login
+            </Button>
 
-              {/* Alerta, caso aja algum erro */}
-              <Alert variant="danger" className={alertaClasse}>
-                Usuário ou senha inválidos
-              </Alert>
-
-              <p className="text-center text-light">
-                Não possui conta?{" "}
-                <span
-                  className={styles.link}
-                  onClick={() => navigate("/cadastro")}
-                >
-                  Cadastre-se
-                </span>
-              </p>
-            </Form>
-          </Col>
-        </Row>
-      </Container>
+            <Alert variant="danger" className={alertaClasse}>
+              Usuário ou senha inválidos
+            </Alert>
+          </Form>
+        </div>
+      </div>
     </div>
   );
 };
