@@ -5,7 +5,7 @@ import PaginaErro from "./pages/PaginaErro.jsx";
 import Login from "./pages/Login.jsx";
 import RotasProtegidas from "./pages/RotasProtegidas.jsx";
 import Home from "./pages/Home.jsx";
-import Cadastro from "./pages/Cadastro.jsx";
+
 
 // Páginas de produto
 import VerProdutos from "./pages/Produtos/VerProdutos.jsx";
@@ -25,7 +25,6 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Login /> },
       { path: "login", element: <Login /> },
-      { path: "cadastro", element: <Cadastro /> },
     ],
   },
   {
