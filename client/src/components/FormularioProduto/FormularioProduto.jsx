@@ -13,15 +13,16 @@ import { useForm } from "react-hook-form";
 import {
   useListaCategorias,
   useListaMedidas,
+  useInserirProduto,
   useBuscarProdutoPorId,
   useAtualizarProduto,
-} from "../../hooks/UseProdutos";
+} from "../../hooks/useProdutos";
 
 // Navigate - transitar entre páginas, params - pegar o id fornecido na url
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom";
 
 // UseState- monitar variáveis e useffect pra realizar algo quando o componente carregar
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 
 const FormularioProduto = (props) => {
   // IMPORTAÇÃO DAS FUNÇÕES VINDAS DO HOOK USEPRODUTOS
@@ -36,8 +37,8 @@ const FormularioProduto = (props) => {
   const { id } = useParams();
 
   // Navigate para trocar de paginas
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
+
   // register = cria um objeto com os valores retirados dos inputs
   // handleSumbit = envia os dados formulário, caso dê erro ou sucesso
   // formState { errors } = objeto que guarda uma lista de erros que aconteceram na tentativa do envio
@@ -46,7 +47,7 @@ const FormularioProduto = (props) => {
     handleSubmit,
     formState: { errors },
     watch,
-    reset
+    reset,
   } = useForm();
 
   // Lista de categorias
@@ -63,46 +64,45 @@ const FormularioProduto = (props) => {
   const imagemAtual = watch("imagemUrl");
 
   // CASO O FORMULÁRIO SEJA DE EDIÇÃO, BUSCAR O PRODUTO ID
-  if(props.page === "editar"){
+  if (props.page === "editar") {
     // Variavel que controla se o produto já foi carregado
-    const [carregado, setCarregado] = useState()
+    const [carregado, setCarregado] = useState();
 
     // Effect pra buscar o produto assim que o componente for montado
-    useEffect(()=>{
-        async function fetchProduto() {
-          try{
-            // Guarda as informações do produto na variável  
-            const produto = await buscarProdutoPorId(id)
-            console.log(produto)
+    useEffect(() => {
+      async function fetchProduto() {
+        try {
+          // Guarda as informações do produto na variável
+          const produto = await buscarProdutoPorId(id);
+          console.log(produto);
 
-            // Se houver produto, reseta o formulário com os dados do produto
-            if(produto && !carregado){
-              reset({
-                  nome: produto.nome,
-                  descricao: produto.descricao,
-                  categoria: produto.categoria,
-                  imagemUrl: produto.imagemUrl,
-                  precoVenda: produto.precoVenda,
-                  precoCusto: produto.precoCusto,
-                  marca: produto.marca,
-                  tamanho: produto.tamanho,
-                  medida: produto.medida,
-                  sku: produto.sku,
-                  quantidade: produto.quantidade,
-                  fornecedor: produto.fornecedor,
-              })
-              //Evita chamadas múltiplas do reset
-              setCarregado(true)
-            }
+          // Se houver produto, reseta o formulário com os dados do produto
+          if (produto && !carregado) {
+            reset({
+              nome: produto.nome,
+              descricao: produto.descricao,
+              categoria: produto.categoria,
+              imagemUrl: produto.imagemUrl,
+              precoVenda: produto.precoVenda,
+              precoCusto: produto.precoCusto,
+              marca: produto.marca,
+              tamanho: produto.tamanho,
+              medida: produto.medida,
+              sku: produto.SKU,
+              quantidade: produto.quantidade,
+              fornecedor: produto.fornecedor,
+            });
+            //Evita chamadas múltiplas do reset
+            setCarregado(true);
           }
-          catch(erro){
-            console.log(("Erro ao buscar o produto:", erro));
-            alert("Produto não encontrado")
-            navigate("/home")
-          }
+        } catch (erro) {
+          console.log(("Erro ao buscar o produto:", erro));
+          alert("Produto não encontrado");
+          navigate("/home");
         }
-        fetchProduto()
-    },[])
+      }
+      fetchProduto();
+    }, []);
   }
 
   // FUNÇÕES QUE LIDAM COM O SUCESSO OU ERRO DO FORMULÁRIO
@@ -116,7 +116,11 @@ const FormularioProduto = (props) => {
       alert("Produto cadastrado com sucesso");
     } else {
       // Depois nóis vê
+      //Envia o objeto data para o hook atualizar o produto
+      atualizarProduto(data, id);
+      alert("Produto atualizado com sucesso");
     }
+    navigate("/home")
   };
   // Caso tenha algum erro no formulário, mostra as mensagens de erro nos campos
   const onError = (errors) => {
@@ -138,8 +142,8 @@ const FormularioProduto = (props) => {
                     message: "O SKU deve ter pelo menos dois caracteres",
                   },
                   maxLength: {
-                    value: 10,
-                    message: "O SKU deve ter no máximo 10 caracteres",
+                    value: 15,
+                    message: "O SKU deve ter no máximo 15 caracteres",
                   },
                 })}
               ></Form.Control>
@@ -206,9 +210,14 @@ const FormularioProduto = (props) => {
               >
                 <option value="0"> Escolha uma categoria </option>
                 {cates.map((cat) => (
-                  <option key={cat.id} value={cat.nome}>
-                    {" "}
-                    {cat.nome}{" "}
+                  <option 
+                    key={cat.id} 
+                    value={cat.nome}
+                    // compara qual é a opção que ele deve deixar selecionada
+                    defaultValue = { 
+                      props.page === "editar" && watch("categoria") === cat.nome 
+                      }>
+                        {cat.nome}
                   </option>
                 ))}
               </Form.Select>
@@ -332,7 +341,11 @@ const FormularioProduto = (props) => {
                   >
                     <option value="0"> Escolha uma medida </option>
                     {medis.map((med) => (
-                      <option key={med.id} value={med.nome}>
+                      <option key={med.id} value={med.nome}
+                      // compara qual é a opção que ele deve deixar selecionada
+                        defaultValue = { 
+                      props.page === "editar" && watch("medida") === med.nome 
+                      }>
                         {" "}
                         {med.nome}{" "}
                       </option>

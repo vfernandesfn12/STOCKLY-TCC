@@ -1,5 +1,5 @@
 // Importa a url da api do aquivo .env
-const url = import.meta.env.VITE_API_URL;
+const url = "http://localhost:5000";
 
 // Importando os hooks pra controar o states e useEffect
 import { useState, useEffect } from "react";

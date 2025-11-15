@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import styles from "./Login.module.css";
-import logo from "../assets/logo.png";
+import logo from "../assets/Logo.png";
 
 // Importando DarkMode
 import DarkMode from "../components/DarkMode/DarkMode.jsx";
@@ -46,9 +46,6 @@ const Login = () => {
   //Variável classes do Alert
   const [alertaClasse, setAlertaClasse] = useState("d-none");
 
-  // Animação na parte de azul
-  const [animacao, setAnimacao] = useState(false)
-
   //Usando apenas a função verificaLogin, que importei do hook
   const { verificaLogin } = useVerificaLogin();
 
@@ -89,19 +86,8 @@ const Login = () => {
       </div>
       <div className={styles.loginCard}>
         {/* LADO AZUL */}
-        <div className={`${styles.leftBox} ${animacao ? styles.animateOutLeft : styles.animateInLeft}`}>
-          <img src={logo} alt="" className={styles.logo} />
-          <p>Não possui conta?</p>
-
-          <button
-            className={styles.registerBtn}
-            onClick={ () => {
-              setAnimacao(true);
-              setTimeout(() => navigate("/cadastro"), 500)
-            }}
-          >
-            Cadastre-se
-          </button>
+        <div className={styles.leftBox}>
+          <img src={logo} className={styles.logo} />
         </div>
 
         {/* LADO DO FORM */}
