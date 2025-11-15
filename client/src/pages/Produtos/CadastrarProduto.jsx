@@ -8,7 +8,6 @@ const CadastrarProduto = () => {
   return (
     <div>
     <Container>
-        
       <FormularioProduto page="cadastro"/>
     </Container>
     </div>

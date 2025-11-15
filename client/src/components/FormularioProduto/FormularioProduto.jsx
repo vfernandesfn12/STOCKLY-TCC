@@ -120,7 +120,7 @@ const FormularioProduto = (props) => {
       atualizarProduto(data, id);
       alert("Produto atualizado com sucesso");
     }
-    navigate("/home")
+    navigate("/home");
   };
   // Caso tenha algum erro no formulário, mostra as mensagens de erro nos campos
   const onError = (errors) => {
@@ -210,14 +210,15 @@ const FormularioProduto = (props) => {
               >
                 <option value="0"> Escolha uma categoria </option>
                 {cates.map((cat) => (
-                  <option 
-                    key={cat.id} 
+                  <option
+                    key={cat.id}
                     value={cat.nome}
                     // compara qual é a opção que ele deve deixar selecionada
-                    defaultValue = { 
-                      props.page === "editar" && watch("categoria") === cat.nome 
-                      }>
-                        {cat.nome}
+                    defaultValue={
+                      props.page === "editar" && watch("categoria") === cat.nome
+                    }
+                  >
+                    {cat.nome}
                   </option>
                 ))}
               </Form.Select>
@@ -341,11 +342,15 @@ const FormularioProduto = (props) => {
                   >
                     <option value="0"> Escolha uma medida </option>
                     {medis.map((med) => (
-                      <option key={med.id} value={med.nome}
-                      // compara qual é a opção que ele deve deixar selecionada
-                        defaultValue = { 
-                      props.page === "editar" && watch("medida") === med.nome 
-                      }>
+                      <option
+                        key={med.id}
+                        value={med.nome}
+                        // compara qual é a opção que ele deve deixar selecionada
+                        defaultValue={
+                          props.page === "editar" &&
+                          watch("medida") === med.nome
+                        }
+                      >
                         {" "}
                         {med.nome}{" "}
                       </option>
