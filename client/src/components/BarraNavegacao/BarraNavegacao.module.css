@@ -177,3 +177,8 @@
     font-size: 0.95rem;
   }
 }
+
+
+span {
+  color: var(--navbar-text); /* Título no DarkMode  */
+}
