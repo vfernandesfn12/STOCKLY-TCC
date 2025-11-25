@@ -1,9 +1,10 @@
-import React from 'react'
-
-const Home = () => {
+function Home() {
+  
   return (
-    <div>Home</div>
-  )
+    <div>
+      <h2 className="mb-4">🏠 Painel de Controle (Dashboard)</h2>
+    </div>
+  );
 }
 
-export default Home
+export default Home;

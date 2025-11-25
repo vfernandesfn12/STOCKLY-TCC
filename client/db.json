@@ -1,12 +1,12 @@
 {
   "usuarios": [
     {
-      "id": "1",
       "nome": "Admnistrador",
       "email": "admin@gmail.com",
       "senha": "123",
-      "tipo": "admin",
-      "imagemUrl": "https://i.ytimg.com/vi/mMxBYLbyWLw/hq2.jpg?sqp=-oaymwEoCOADEOgC8quKqQMcGADwAQH4AYYCgALgA4oCDAgAEAEYRyBLKHIwDw==&rs=AOn4CLC1G7W20xNWxDV1ozQlQe2Tyns_5g"
+      "tipo": "Administrador",
+      "imagemUrl": "https://i.ytimg.com/vi/mMxBYLbyWLw/hq2.jpg?sqp=-oaymwEoCOADEOgC8quKqQMcGADwAQH4AYYCgALgA4oCDAgAEAEYRyBLKHIwDw==&rs=AOn4CLC1G7W20xNWxDV1ozQlQe2Tyns_5g",
+      "id": "1"
     },
     {
       "id": "2",
@@ -25,7 +25,23 @@
       "imagemUrl": "https://i.pinimg.com/736x/b2/79/44/b2794415016ee72dcf75fdc904a3c7f5.jpg"
     }
   ],
-  "produtos": [],
+  "produtos": [
+    {
+      "id": "c59b",
+      "sku": "7892002002002",
+      "nome": "Leite Integral 1L",
+      "descricao": "Leite integral UHT 1 litro.",
+      "categoria": "Saúde e Beleza",
+      "marca": "TioJolo",
+      "fornecedor": "Lacta",
+      "quantidade": "2",
+      "tamanho": "2",
+      "medida": "L",
+      "precoCusto": "20",
+      "precoVenda": "16",
+      "imagemUrl": "https://edona.com.br/cdn/shop/files/leite-integral-piracanjuba-1-litro-372339.png?v=1743731557"
+    }
+  ],
   "funcionarios": [
     {
       "id": "a7cc",

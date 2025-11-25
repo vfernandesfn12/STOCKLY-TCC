@@ -9,15 +9,26 @@ import { Link } from "react-router-dom";
 import { useDeletaProduto } from "../../hooks/useProdutos";
 
 const CardProduto = (props) => {
+  
   // importar a função de deletar produto
   const { deletarProduto } = useDeletaProduto();
 
   // Função pra lidar com o delete
   const handleDelete = async () => {
     if (confirm(`Deseja realmente excluir o produto ${props.nome}?`)) {
-      const deletado = await deletarProduto(props.id);
-      alert(`Produto ${props.nome} deletado com sucesso!`);
-      window.location.reload();
+      try {
+        // 1. Deleta o produto
+        await deletarProduto(props.id);
+
+        alert(`Produto ${props.nome} deletado com sucesso!`);
+
+        // NOTA: Se esta página (VerProdutos) precisa se atualizar, você
+        // ainda precisará de uma função de refetch local aqui.
+        // Mas para o Dashboard, o refetchDashboard resolve.
+      } catch (error) {
+        alert(`Erro ao deletar o produto ${props.nome}.`);
+        console.error("Erro na deleção:", error);
+      }
     }
   };
 

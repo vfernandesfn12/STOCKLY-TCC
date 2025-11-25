@@ -127,8 +127,21 @@ const FormularioProduto = (props) => {
     console.log("Erros:", errors);
   };
   return (
-    <div className="text-center">
-      <Form className="mt-3 w-full" onSubmit={handleSubmit(onSubmit, onError)}>
+    <div
+      className="text-center"
+      style={{
+        minHeight: "100vh",
+        minWidth: "100vh",
+        paddingTop: "5rem",
+        paddingRight: "15rem",
+      }}
+    >
+      <h1>CADASTRO DE PRODUTOS</h1>
+
+      <Form
+        className="mt-3 w-full"
+        onSubmit={handleSubmit(onSubmit, onError)}
+      >
         <Row>
           <Col md={12} lg={6}>
             {/* Caixinha de SKU */}

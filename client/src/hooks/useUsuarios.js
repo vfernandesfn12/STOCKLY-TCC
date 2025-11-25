@@ -1,5 +1,5 @@
 // Importa a url da api do aquivo .env
-const url = "http://localhost:5000";
+const url = import.meta.env.VITE_API_URL;
 
 // Importando os hooks pra controar o states e useEffect
 import { useState, useEffect } from "react";
@@ -133,7 +133,7 @@ export function useAtualizaUsuario() {
 }
 
 
-// Cria o hook para excluir um produto
+// Cria o hook para excluir um usuário
 export function useDeletaUsuario() {
   // Recebe o id do usuario a ser deletado e faz a requisição para a Api
   // com o método DELETE

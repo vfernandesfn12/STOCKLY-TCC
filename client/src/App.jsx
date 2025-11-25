@@ -1,4 +1,3 @@
-import "./App.css";
 //Importando o outlet, do rea
 import { Outlet } from "react-router-dom";
 

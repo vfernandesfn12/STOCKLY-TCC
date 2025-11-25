@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Sun from "./Sun.svg";
 import Moon from "./Moon.svg";
 import "./DarkMode.css";

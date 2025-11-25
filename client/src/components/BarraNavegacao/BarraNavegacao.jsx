@@ -150,9 +150,9 @@ const BarraNavegacao = () => {
           </Nav>
 
           {/* ==== PERFIL DO USUÁRIO ==== */}
-          <Nav className="d-flex align-items-center">
+          <Nav className="d-flex align-items-center mx-auto">
             {/* Botão de modo escuro (DarkMode) */}
-            <div className="me-3">
+            <div className="me-3" style={{padding: "15px"}}>
               <DarkMode />
             </div>
 

@@ -1,245 +1,266 @@
-// Importação dos componentes do bootstrap
+// importando components do bootstrap
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 
-// Importando a função useForm do react-hook-form
+// Importando o hook useForm do react-hook-form
 import { useForm } from "react-hook-form";
 
-// Importando os hooks de funcionários
+//Importação do navigate pra transitar entre páginas
+//Importação do useParams para pegar o id fornecido na url
+import { useNavigate, useParams } from "react-router-dom";
+
+// Importando o hook useState para monitorar a mudança das variáveis
+import { useState, useEffect } from "react";
+
+// Importando o hook useInserirFuncionario
 import {
-  useListaDepartamentos,
   useInserirFuncionario,
-} from "../../hooks/UseFuncionarios";
+  useBuscarFuncionarioPorId,
+  useAtualizaFuncionario,
+} from "../../hooks/useFuncionarios";
 
 const FormularioFuncionario = (props) => {
-  // Hook de inserção de funcionário
-  const { inserirFuncionario } = useInserirFuncionario();
-
-  // Controle do formulário
+  // IMPORTAÇÃO E USO DO HOOK FORM
+  // O register é usado para criar o objeto de registro, com os campos ditos abaico no código
+  // O handlesubmit é usado para tratar do envio do fomulario, caso de erro ou sucesso
+  // O formState é usado para monitorar o estado do formulário, como erros e sucesso
+  // O errors é usado para monitorar os erros do formulário, como campos obrigatórios e validações
+  // o watch é usado para monitorar os campos do formulario
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
     watch,
   } = useForm();
 
-  // Lista de departamentos
-  const departamentos = useListaDepartamentos();
+  // IMPORTAÇÃO DOS HOOKS PARA INSERIR, E ATUALIZAR
+  // Usando a funcao de inserir Funcionario vinda do hook
+  const { inserirFuncionario } = useInserirFuncionario();
+  // Usando a funcao de buscar Funcionario por id e de atualizar o Funcionario
+  const { buscarFuncionarioPorId } = useBuscarFuncionarioPorId();
+  const { atualizaFuncionario } = useAtualizaFuncionario();
 
-  // Variável de funcionário sem imagem
+  // Guardando o id do Funcionario vindo da url
+  const { id } = useParams();
+
+  // Criando o navigate
+  const navigate = useNavigate();
+
+  //Link Funcionario sem imagem
   const linkImagem =
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA13yHQQqIo0itjIvx5np_T1BJcqtKSwErqQ&s";
+    "https://www.malhariapradense.com.br/wp-content/uploads/2017/08/produto-sem-imagem.png";
 
-  // Variável para armazenar o link da imagem, vindo do input
-  const imagemAtual = watch("fotoUrl");
+  // Caso o campo de imagem recebe um novo valor, atualiza a imagem de acordo com o campo
+  const imagemAtual = watch("imagemUrl");
 
-  // Função ao enviar formulário com sucesso
+  //CASO O FORMULÁRIO SEJA DE EDIÇÃO, BUSCAR O Funcionario PELO ID
+  if (props.page === "editar") {
+    // Variavel que controla se o Funcionario já foi carregado
+    const [carregado, setCarregado] = useState(false);
+
+    // Effect pra buscar o Funcionario assim que o componente for montado
+    useEffect(() => {
+      async function fetchFuncionario() {
+        try {
+          const funcionario = await buscarFuncionarioPorId(id);
+          // mudei aqui
+          console.log(funcionario);
+
+          // Se houver Funcionario, reseta o formulário com os dados do Funcionario
+          if (funcionario && !carregado) {
+            reset({
+              nome: funcionario.nome,
+              email: funcionario.email,
+              senha: funcionario.senha,
+              tipo: funcionario.tipo,
+              imagemUrl: funcionario.imagemUrl,
+            });
+            // Evita chamadas múltiplas de reset
+            setCarregado(true);
+          }
+        } catch (erro) {
+          console.error("Erro ao buscar Funcionario:", erro);
+          // Se o erro for de Funcionario não encontrado, redireciona para a página inicial
+          if (erro.message.includes("Unexpected")) {
+            alert("Funcionario não encontrado!");
+            navigate("/home");
+          }
+        }
+      }
+      fetchFuncionario();
+    }, []);
+  }
+
+  // FUNCOES QUE LIDAM COM O SUCESSO E ERRO DO FORMULÁRIO
+  // funcao pra caso de sucesso na validacao do formulario
+  // data é o objeto com os campos do formulário
   const onSubmit = (data) => {
     console.log("Dados:", data);
     if (props.page === "cadastro") {
+      // Envia o objeto data para o hook inserir o Funcionario
       inserirFuncionario(data);
-      alert("Funcionário cadastrado com sucesso");
+      alert("Funcionario cadastrado com sucesso!");
     } else {
-      // Aqui poderia ser edição
+      // Envia o objeto data para o hook inserir o Funcionario, junto com o id
+      atualizaFuncionario(data, id);
+      alert("Funcionario atualizado com sucesso!");
     }
+    navigate("/home");
   };
 
-  // Função ao ocorrer erro na validação
+  //Caso tenha erro no formulario, mostra mensagens de erro nos campos
   const onError = (errors) => {
     console.log("Erros:", errors);
   };
 
+  // Lista de funcoes
+  const funcoes = [
+    { id: 1, nome: "Funcionário" },
+    { id: 2, nome: "Gerente" },
+    { id: 3, nome: "Administrador" },
+  ];
+
   return (
-    <div
-      className="d-flex justify-content-right align-items-start"
-      style={{
-        minHeight: "100vh",
-        paddingTop: "5rem",
-      }}
-    >
+    <div className="d-flex justify-content-center w-100 mt-4">
       <Form
-        style={{
-          padding: "2.5rem",
-          borderRadius: "20px",
-          maxWidth: "1100px",
-          width: "90%",
-        }}
+        className="w-100 p-4 rounded shadow-sm"
+        style={{ maxWidth: "900px" }}
         onSubmit={handleSubmit(onSubmit, onError)}
       >
-        <h1 className="text-center mb-5 text-dark fw-bold">
-          Cadastro de Funcionário
-        </h1>
         <Row>
           <Col md={12} lg={6}>
-            {/* Nome do Funcionário */}
-            <FloatingLabel controlId="FI-NOME" label="Nome" className="mb-5">
-              <Form.Control
-                type="text"
-                {...register("nome_funcionario", {
-                  required: "O nome é obrigatório",
-                  minLength: {
-                    value: 2,
-                    message: "O nome deve ter pelo menos dois caracteres",
-                  },
-                  maxLength: {
-                    value: 50,
-                    message: "O nome deve ter no máximo 50 caracteres",
-                  },
-                })}
-              />
-              {errors.nome_funcionario && (
-                <p className="error">{errors.nome_funcionario.message}</p>
-              )}
-            </FloatingLabel>
-
-            {/* CPF */}
-            <FloatingLabel controlId="FI-CPF" label="CPF" className="mb-5">
-              <Form.Control
-                type="text"
-                {...register("cpf", {
-                  required: "O CPF é obrigatório",
-                  pattern: {
-                    value: /^\d{3}\.\d{3}\.\d{3}-\d{2}$/,
-                    message: "Insira um CPF válido (ex: 000.000.000-00)",
-                  },
-                })}
-              />
-              {errors.cpf && <p className="error">{errors.cpf.message}</p>}
-            </FloatingLabel>
-
-            {/* Telefone */}
+            {/* Caixinha de nome */}
             <FloatingLabel
-              controlId="FI-TELEFONE"
-              label="Telefone"
+              controlId="floatingInputNome"
+              label="Nome"
               className="mb-5"
             >
               <Form.Control
                 type="text"
-                {...register("telefone", {
-                  required: "O telefone é obrigatório",
-                  pattern: {
-                    value: /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/,
-                    message: "Insira um telefone válido",
+                placeholder="Digite o nome do funcionário"
+                style={{ paddingTop: "3.5rem", paddingBottom: "2rem" }}
+                {...register("nome", {
+                  required: "O nome é obrigatório",
+                  minLength: {
+                    value: 2,
+                    message: "O nome deve ter pelo menos 2 caracteres",
+                  },
+                  maxLength: {
+                    value: 100,
+                    message: "O nome deve ter ate 100 caracteres",
                   },
                 })}
               />
-              {errors.telefone && (
-                <p className="error">{errors.telefone.message}</p>
-              )}
+              {errors.nome && <p className="error">{errors.nome.message}</p>}
             </FloatingLabel>
 
-            {/* Email */}
-            <FloatingLabel controlId="FI-EMAIL" label="Email" className="mb-5">
+            {/* Caixinha de email */}
+            <FloatingLabel
+              controlId="floatingInput"
+              label="Email"
+              className="mb-5"
+            >
               <Form.Control
                 type="email"
+                placeholder="name@example.com"
+                style={{ paddingTop: "3.5rem", paddingBottom: "2rem" }}
                 {...register("email", {
                   required: "O email é obrigatório",
                   pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Insira um email válido",
+                    value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
+                    message: "Email inválido",
                   },
+                  validate: (value) => value.includes("@") || "Email inválido",
                 })}
               />
               {errors.email && <p className="error">{errors.email.message}</p>}
             </FloatingLabel>
 
-            {/* Departamento */}
+            {/* Caixinha de senha */}
             <FloatingLabel
-              controlId="FI-DEPARTAMENTO"
-              label="Departamento"
+              controlId="floatingPassword"
+              label="Senha"
+              className="mb-5"
+            >
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                style={{ paddingTop: "3.5rem", paddingBottom: "2rem" }}
+                {...register("senha", {
+                  required: "A senha é obrigatória",
+                })}
+              />
+              {errors.senha && <p className="error">{errors.senha.message}</p>}
+            </FloatingLabel>
+
+            {/* Select de tipo */}
+            <FloatingLabel
+              controlId="floatingSelectTipo"
+              label="Tipo de Funcionário"
               className="mb-5"
             >
               <Form.Select
-                {...register("departamento", {
-                  validate: (value) =>
-                    value !== "0" || "Escolha um departamento",
+                {...register("tipo", {
+                  validate: (value) => value !== "0" || "Escolha um tipo",
                 })}
               >
-                <option value="0">Escolha um departamento</option>
-                {departamentos.map((dep) => (
-                  <option key={dep.id} value={dep.nome}>
-                    {dep.nome}
+                <option value="0"> Escolha um tipo </option>
+                {funcoes.map((tipo) => (
+                  <option
+                    key={tipo.id}
+                    value={tipo.nome}
+                    // é pra ser selected, mas tá reclamando
+                    defaultValue={
+                      props.page === "editar" && watch("tipo") === tipo.nome
+                    }
+                  >
+                    {tipo.nome}
                   </option>
                 ))}
               </Form.Select>
-              {errors.departamento && (
-                <p className="error">{errors.departamento.message}</p>
-              )}
+              {errors.tipo && <p className="error">{errors.tipo.message}</p>}
             </FloatingLabel>
           </Col>
-
-          {/* CARGO */}
           <Col md={12} lg={6}>
-            <FloatingLabel controlId="FI-CARGO" label="Cargo" className="mb-5">
-              <Form.Control
-                type="text"
-                {...register("cargo", {
-                  required: "O cargo é obrigatório",
-                  minLength: {
-                    value: 2,
-                    message: "O cargo deve ter pelo menos dois caracteres",
-                  },
-                  maxLength: {
-                    value: 30,
-                    message: "O cargo deve ter no máximo 30 caracteres",
-                  },
-                })}
-              ></Form.Control>
-              {errors.marca && (
-                <p className="error"> {errors.cargo.message} </p>
-              )}
-            </FloatingLabel>
-
-            {/* Foto do Funcionário */}
-            <Form.Group controlId="FI-FOTO" className="mb-5">
+            <Form.Group controlId="formFileLg" className="mb-5">
+              {/* Caixinha de imagem */}
               <FloatingLabel
-                controlId="FI-FOTO-LINK"
-                label="Link da foto"
-                className="mb-5"
+                controlId="floatingInputImagem"
+                label="Envie o link da imagem do funcionário"
+                className="mb-3"
               >
                 <Form.Control
-                  type="url"
-                  {...register("fotoUrl", {
-                    required: "O link da foto é obrigatório",
+                  type="text"
+                  {...register("imagemUrl", {
+                    required: "A imagem é obrigatória",
                     pattern: {
                       value: /^(http|https):\/\/[^ "]+$/,
                       message: "Insira um link válido",
                     },
                   })}
                 />
-                {errors.fotoUrl && (
-                  <p className="error">{errors.fotoUrl.message}</p>
+                {errors.imagemUrl && (
+                  <p className="error">{errors.imagemUrl.message}</p>
                 )}
               </FloatingLabel>
-
               <Image
+                src={imagemAtual == "" ? linkImagem : imagemAtual}
+                rounded
                 width={200}
                 height={200}
-                rounded
-                src={imagemAtual === "" ? linkImagem : imagemAtual}
               />
             </Form.Group>
+            {/* Botão para enviar o formulário de cadastro de produto */}
+            <Button variant="primary" size="lg" type="submit">
+              {props.page === "editar" ? "Atualizar" : "Cadastrar"}
+            </Button>
           </Col>
         </Row>
-
-        {/* Botão */}
-        <Button
-          style={{
-            backgroundColor: "#344250",
-            display: "block",
-            margin: "2rem auto 0 auto",
-            padding: "10px 40px"
-          }}
-          variant="primary"
-          size="lg"
-          type="submit"
-        >
-          {props.page === "editar" ? "Atualizar" : "Cadastrar"}
-        </Button>
       </Form>
     </div>
   );
