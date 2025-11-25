@@ -29,19 +29,8 @@
   border-top-right-radius: 120px;
   border-bottom-right-radius: 120px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  text-align: left;
-}
-
-.leftBox h1 {
-  font-size: 2.3rem;
-  margin-bottom: 10px;
-}
-
-.leftBox p {
-  opacity: 0.9;
-  margin-bottom: 25px;
+  align-items: center;
 }
 
 .registerBtn {
@@ -89,7 +78,7 @@
   --label-color-focused: #0d6efd;
 }
 
-html[data-theme='dark'] {
+html[data-theme="dark"] {
   --bg-page: #121212;
   --bg-card: #1e1e1e;
   --bg-left: #0a4fb3;
@@ -192,8 +181,9 @@ html[data-theme='dark'] {
 }
 
 .logo {
-  width: 250px;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25));
+  width: 400px;
+  height: auto;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
   margin-bottom: 20px;
 }
 
@@ -206,7 +196,7 @@ html[data-theme='dark'] {
 }
 
 .leftBox {
-  transition: transform .6s ease-in-out 1.2s, opacity .6s ease-in-out;
+  transition: transform 0.6s ease-in-out 1.2s, opacity 0.6s ease-in-out;
 }
 
 /* Saindo (Login → Cadastro) */
