@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import styles from "./Login.module.css";
-import logo from "../assets/Logo.png";
+import logoBranca from "../assets/logoBranca.png";
 
 // Importando DarkMode
 import DarkMode from "../components/DarkMode/DarkMode.jsx";
@@ -87,7 +87,7 @@ const Login = () => {
       <div className={styles.loginCard}>
         {/* LADO AZUL */}
         <div className={styles.leftBox}>
-          <img src={logo} className={styles.logo} />
+          <img src={logoBranca} className={styles.logo} />
         </div>
 
         {/* LADO DO FORM */}
@@ -129,9 +129,7 @@ const Login = () => {
               )}
             </FloatingLabel>
 
-            <p className={styles.forgotPassword}>Forgot Password?</p>
-
-            <Button type="submit" className={styles.btnLogin}>
+            <Button style={{padding: "20px", fontSize: "25px"}} type="submit" className={styles.btnLogin}>
               Login
             </Button>
 
