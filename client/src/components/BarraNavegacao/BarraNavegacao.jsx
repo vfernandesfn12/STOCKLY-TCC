@@ -123,13 +123,16 @@ const BarraNavegacao = () => {
                 Adicionar
               </NavDropdown.Item>
             </NavDropdown>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 025779db9f423335eb43a65ffb3fe12cfecf123d
           </Nav>
 
           {/* ==== PERFIL DO USUÁRIO ==== */}
           <Nav className="d-flex align-items-center mx-auto">
             {/* Botão de modo escuro (DarkMode) */}
-            <div className="me-3" style={{padding: "15px"}}>
+            <div className="me-3" style={{ padding: "15px" }}>
               <DarkMode />
             </div>
 

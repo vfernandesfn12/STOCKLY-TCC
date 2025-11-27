@@ -260,6 +260,10 @@ const FormularioFuncionario = (props) => {
             <Button variant="primary" size="lg" type="submit">
               {props.page === "editar" ? "Atualizar" : "Cadastrar"}
             </Button>
+
+            <Button variant="secondary" size="lg" type="button" onClick={() => navigate("/home")} className="ms-3">
+              Cancelar
+            </Button>
           </Col>
         </Row>
       </Form>

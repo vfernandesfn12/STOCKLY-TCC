@@ -25,23 +25,7 @@
       "imagemUrl": "https://i.pinimg.com/736x/b2/79/44/b2794415016ee72dcf75fdc904a3c7f5.jpg"
     }
   ],
-  "produtos": [
-    {
-      "id": "c59b",
-      "sku": "7892002002002",
-      "nome": "Leite Integral 1L",
-      "descricao": "Leite integral UHT 1 litro.",
-      "categoria": "Saúde e Beleza",
-      "marca": "TioJolo",
-      "fornecedor": "Lacta",
-      "quantidade": "2",
-      "tamanho": "2",
-      "medida": "L",
-      "precoCusto": "20",
-      "precoVenda": "16",
-      "imagemUrl": "https://edona.com.br/cdn/shop/files/leite-integral-piracanjuba-1-litro-372339.png?v=1743731557"
-    }
-  ],
+  "produtos": [],
   "funcionarios": [
     {
       "id": "a7cc",
