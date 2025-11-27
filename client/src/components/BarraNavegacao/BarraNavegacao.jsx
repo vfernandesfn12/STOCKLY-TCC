@@ -10,10 +10,8 @@ import { AuthContext } from "../../contexts/UserContext.jsx"; // contexto de aut
 
 // ===== ÍCONES =====
 import { HiUserGroup } from "react-icons/hi"; // Ícone de grupo de usuários (funcionários)
-import { FaHandHoldingUsd } from "react-icons/fa"; // Ícone de cliente (mão segurando dinheiro)
 import { HiMiniClipboardDocumentList } from "react-icons/hi2"; // Ícone de pedidos (prancheta)
 import { FaBoxesStacked } from "react-icons/fa6"; // Ícone de produtos (caixas empilhadas)
-import { HiMiniDocumentText } from "react-icons/hi2"; // Ícone de relatórios (documento)
 import { RiHome9Fill } from "react-icons/ri"; // Ícone de casa (home)
 
 // ===== CSS e LOGO =====
