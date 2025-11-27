@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 
 
 // Importando a função useform do pacote hook-form
-import { useForm, Watch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 // Importando o hook de produtos
 import { useInserirProduto } from "../../hooks/UseProdutos";
@@ -155,22 +155,21 @@ const { inserirProduto } = useInserirProduto();
           </Col>
           <Col md={6}>
             <FloatingLabel controlId="FI-TIPOPRODUTO" label="Tipo do Produto">
-              <Form.Control
-                type="text"
+              <Form.Select
+                aria-label="Tipo do produto"
                 {...register("tipoProduto", {
-                  required: "O tipo do produto é obrigatória",
-                  minLength: {
-                    value: 2,
-                    message:
-                      "O tipo do produto deve ter pelo menos dois caracteres",
-                  },
-                  maxLength: {
-                    value: 50,
-                    message:
-                      "O tipo do produto deve ter no máximo 50 caracteres",
-                  },
+                  required: "O tipo do produto é obrigatório",
                 })}
-              />
+              >
+                <option value="">Selecione...</option>
+                <option value="Bebida">Bebida</option>
+                <option value="Comida">Comida</option>
+                <option value="Congelados">Congelados</option>
+                <option value="Perecível">Perecível</option>
+                <option value="Não Perecível">Não Perecível</option>
+                <option value="Higiene">Higiene</option>
+                <option value="Outro">Outro</option>
+              </Form.Select>
               {errors.tipoProduto && (
                 <p className="error"> {errors.tipoProduto.message} </p>
               )}
