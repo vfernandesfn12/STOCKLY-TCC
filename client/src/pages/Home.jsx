@@ -1,10 +1,8 @@
-import DeshBoard from "./DeshBoard/DeshBoard";
-
 function Home() {
   
   return (
     <div>
-      <DeshBoard />
+      <h1>HOME</h1>
     </div>
   );
 }
