@@ -88,24 +88,6 @@ const BarraNavegacao = () => {
               </NavDropdown.Item>
             </NavDropdown>
 
-            {/* ===== MENU CLIENTES ===== */}
-            <NavDropdown
-              title={
-                <>
-                  <FaHandHoldingUsd className="me-1" />
-                  Clientes
-                </>
-              }
-              id="clientes-dropdown"
-            >
-              <NavDropdown.Item as={NavLink} to="/clientes">
-                Listar
-              </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/clientes/cadastrar">
-                Adicionar
-              </NavDropdown.Item>
-            </NavDropdown>
-
             {/* ===== MENU FUNCIONÁRIOS ===== */}
             <NavDropdown
               title={
