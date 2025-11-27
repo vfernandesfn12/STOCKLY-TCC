@@ -155,15 +155,6 @@ const Login = () => {
                 Usuário ou senha inválidos
               </Alert>
 
-              <p className="text-center text-light">
-                Não possui conta?{" "}
-                <span
-                  className={styles.link}
-                  onClick={() => navigate("/cadastro")}
-                >
-                  Cadastre-se
-                </span>
-              </p>
             </Form>
           </Col>
         </Row>

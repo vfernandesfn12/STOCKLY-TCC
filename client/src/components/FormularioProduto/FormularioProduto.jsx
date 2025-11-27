@@ -161,12 +161,10 @@ const { inserirProduto } = useInserirProduto();
                   required: "O tipo do produto é obrigatório",
                 })}
               >
-                <option value="">Selecione...</option>
+                <option value="">Selecione</option>
                 <option value="Bebida">Bebida</option>
                 <option value="Comida">Comida</option>
                 <option value="Congelados">Congelados</option>
-                <option value="Perecível">Perecível</option>
-                <option value="Não Perecível">Não Perecível</option>
                 <option value="Higiene">Higiene</option>
                 <option value="Outro">Outro</option>
               </Form.Select>
