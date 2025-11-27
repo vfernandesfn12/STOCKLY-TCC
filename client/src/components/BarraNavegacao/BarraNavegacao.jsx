@@ -123,10 +123,24 @@ const BarraNavegacao = () => {
                 Adicionar
               </NavDropdown.Item>
             </NavDropdown>
-<<<<<<< HEAD
 
-=======
->>>>>>> 025779db9f423335eb43a65ffb3fe12cfecf123d
+            {/* ===== MENU PEDIDOS ===== */}
+            <NavDropdown
+              title={
+                <>
+                  <HiMiniClipboardDocumentList className="me-1" />
+                  Pedidos
+                </>
+              }
+              id="pedidos-dropdown"
+            >
+              <NavDropdown.Item as={NavLink} to="/pedidos">
+                Listar
+              </NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/pedidos/cadastrar">
+                Adicionar
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
 
           {/* ==== PERFIL DO USUÁRIO ==== */}
