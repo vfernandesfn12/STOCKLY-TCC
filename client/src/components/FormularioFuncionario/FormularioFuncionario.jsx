@@ -16,6 +16,7 @@ import { useNavigate, useParams } from "react-router-dom";
 // Importando o hook useState para monitorar a mudança das variáveis
 import { useState, useEffect } from "react";
 
+
 // Importando o hook useInserirFuncionario
 import {
   useInserirFuncionario,
@@ -128,7 +129,7 @@ const FormularioFuncionario = (props) => {
   return (
     <div className="d-flex justify-content-center w-100 mt-4">
       <Form
-        className="w-100 p-4 rounded shadow-sm"
+        className="w-100 p-4 rounded shadow-sm bg-body text-body"
         style={{ maxWidth: "900px" }}
         onSubmit={handleSubmit(onSubmit, onError)}
       >

@@ -70,12 +70,6 @@ const BarraNavegacao = () => {
               Home
             </Nav.Link>
 
-            {/* Link para Relatórios */}
-            <Nav.Link as={NavLink} to="/relatorios">
-              <HiMiniDocumentText className="me-1" />
-              Relatórios
-            </Nav.Link>
-
             {/* ===== MENU PRODUTOS ===== */}
             <NavDropdown
               title={
@@ -130,23 +124,6 @@ const BarraNavegacao = () => {
               </NavDropdown.Item>
             </NavDropdown>
 
-            {/* ===== MENU PEDIDOS ===== */}
-            <NavDropdown
-              title={
-                <>
-                  <HiMiniClipboardDocumentList className="me-1" />
-                  Pedidos
-                </>
-              }
-              id="pedidos-dropdown"
-            >
-              <NavDropdown.Item as={NavLink} to="/pedidos">
-                Listar
-              </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/pedidos/cadastrar">
-                Adicionar
-              </NavDropdown.Item>
-            </NavDropdown>
           </Nav>
 
           {/* ==== PERFIL DO USUÁRIO ==== */}
