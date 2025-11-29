@@ -1,6 +1,7 @@
 // Importando o css da barra de navegação
 import styles from "./BarraNavegacao.module.css";
 
+import logo from "../../assets/logo.png";
 // Importar os componentes do bootstrap
 import { Nav, Navbar, NavDropdown, Image, Accordion } from "react-bootstrap";
 
@@ -43,7 +44,7 @@ const BarraNavegacao = () => {
     >
       {/* Logo da empresa */}
       <Navbar.Brand as={NavLink} to="/home" className="text-white mb-3">
-        <LiaAtomSolid className="fs-4" />
+        <img className="fs-4" src={logo} style={{ width: "50px", height: "50px" }}/>
         <span className="fs-5 ms-2">STOCKLY</span>
       </Navbar.Brand>
 
